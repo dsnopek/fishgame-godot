@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://assets/sprites/gun.png" type="Texture" id=1]
+[ext_resource path="res://assets/sprites/gun.png" type="Texture2D" id=1]
 [ext_resource path="res://pickups/Pickup.tscn" type="PackedScene" id=2]
 [ext_resource path="res://pickups/Gun.gd" type="Script" id=3]
 [ext_resource path="res://assets/sounds/shoot.ogg" type="AudioStream" id=4]
@@ -23,8 +23,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 1,
 "values": [ 0 ]
 }
@@ -35,8 +35,8 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 1,
 "values": [ 8 ]
 }
@@ -51,8 +51,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PackedFloat32Array( 0, 0.1, 0.2, 0.4 ),
+"transitions": PackedFloat32Array( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 4, 5, 6, 0 ]
 }
@@ -63,8 +63,8 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PackedFloat32Array( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PackedFloat32Array( 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 8, 9, 10, 11, 8 ]
 }
@@ -75,8 +75,8 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.1 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0.1 ),
+"transitions": PackedFloat32Array( 1 ),
 "values": [ {
 "args": [  ],
 "method": "_fire_projectile"
@@ -86,13 +86,13 @@ tracks/2/keys = {
 [node name="Gun" instance=ExtResource( 2 )]
 script = ExtResource( 3 )
 
-[node name="GunSprite" type="Sprite" parent="." index="0"]
+[node name="GunSprite" type="Sprite2D" parent="." index="0"]
 position = Vector2( 14, -4 )
 texture = ExtResource( 1 )
 vframes = 5
 hframes = 4
 
-[node name="MuzzleFlashSprite" type="Sprite" parent="." index="1"]
+[node name="MuzzleFlashSprite" type="Sprite2D" parent="." index="1"]
 position = Vector2( 16, -4 )
 texture = ExtResource( 1 )
 vframes = 5
@@ -103,10 +103,10 @@ frame = 8
 rotation = 1.5708
 shape = SubResource( 1 )
 
-[node name="ProjectilePosition" type="Position2D" parent="." index="3"]
+[node name="ProjectilePosition" type="Marker2D" parent="." index="3"]
 position = Vector2( 42, -4 )
 
-[node name="SparksPosition" type="Position2D" parent="." index="4"]
+[node name="SparksPosition" type="Marker2D" parent="." index="4"]
 position = Vector2( 31, -4 )
 
 [node name="DudDetector" type="Area2D" parent="." index="5"]

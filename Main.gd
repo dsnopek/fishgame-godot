@@ -1,9 +1,9 @@
 extends Node2D
 
-onready var game = $Game
-onready var ui_layer: UILayer = $UILayer
-onready var ready_screen = $UILayer/Screens/ReadyScreen
-onready var music := $Music
+@onready var game = $Game
+@onready var ui_layer: UILayer = $UILayer
+@onready var ready_screen = $UILayer/Screens/ReadyScreen
+@onready var music := $Music
 
 var players := {}
 
@@ -13,10 +13,10 @@ var players_score := {}
 var match_started := false
 
 func _ready() -> void:
-	OnlineMatch.connect("error", self, "_on_OnlineMatch_error")
-	OnlineMatch.connect("disconnected", self, "_on_OnlineMatch_disconnected")
-	OnlineMatch.connect("player_status_changed", self, "_on_OnlineMatch_player_status_changed")
-	OnlineMatch.connect("player_left", self, "_on_OnlineMatch_player_left")
+	OnlineMatch.connect("error", Callable(self, "_on_OnlineMatch_error"))
+	OnlineMatch.connect("disconnected", Callable(self, "_on_OnlineMatch_disconnected"))
+	OnlineMatch.connect("player_status_changed", Callable(self, "_on_OnlineMatch_player_status_changed"))
+	OnlineMatch.connect("player_left", Callable(self, "_on_OnlineMatch_player_left"))
 	
 	randomize()
 	music.play_random()
@@ -99,7 +99,7 @@ func _on_OnlineMatch_player_left(player) -> void:
 
 func _on_OnlineMatch_player_status_changed(player, status) -> void:
 	if status == OnlineMatch.PlayerStatus.CONNECTED:
-		if OnlineMatch.is_network_server():
+		if OnlineMatch.is_server():
 			# Tell this new player about all the other players that are already ready.
 			for session_id in players_ready:
 				OnlineMatch.custom_rpc_id(self, player.peer_id, "player_ready", [session_id])
@@ -111,7 +111,7 @@ func _on_OnlineMatch_player_status_changed(player, status) -> void:
 func player_ready(session_id: String) -> void:
 	ready_screen.set_status(session_id, "READY!")
 	
-	if OnlineMatch.is_network_server() and not players_ready.has(session_id):
+	if OnlineMatch.is_server() and not players_ready.has(session_id):
 		players_ready[session_id] = true
 		if players_ready.size() == OnlineMatch.players.size():
 			if OnlineMatch.match_state != OnlineMatch.MatchState.PLAYING:
@@ -153,7 +153,7 @@ func _on_Game_game_started() -> void:
 
 func _on_Game_player_dead(player_id: int) -> void:
 	if GameState.online_play:
-		var my_id = OnlineMatch.get_network_unique_id()
+		var my_id = OnlineMatch.get_unique_id()
 		if player_id == my_id:
 			ui_layer.show_message("You lose!")
 
@@ -162,7 +162,7 @@ func _on_Game_game_over(player_id: int) -> void:
 	
 	if not GameState.online_play:
 		show_winner(players[player_id])
-	elif OnlineMatch.is_network_server():
+	elif OnlineMatch.is_server():
 		if not players_score.has(player_id):
 			players_score[player_id] = 1
 		else:
@@ -175,7 +175,7 @@ func _on_Game_game_over(player_id: int) -> void:
 func update_wins_leaderboard() -> void:
 	if not Online.nakama_session or Online.nakama_session.is_expired():
 		# If our session has expired, then wait until a new session is setup.
-		yield(Online, "session_connected")
+		await Online.session_connected
 	
 	Online.nakama_client.write_leaderboard_record_async(Online.nakama_session, 'fish_game_wins', 1)
 
@@ -185,7 +185,7 @@ func show_winner(name: String, session_id: String = '', score: int = 0, is_match
 	else:
 		ui_layer.show_message(name + " wins this round!")
 	
-	yield(get_tree().create_timer(2.0), "timeout")
+	await get_tree().create_timer(2.0).timeout
 	if not game.game_started:
 		return
 	

@@ -1,6 +1,6 @@
 extends "res://addons/snopek-state-machine/State.gd"
 
-onready var host = $"../.."
+@onready var host = $"../.."
 
 func _state_enter(info: Dictionary) -> void:
 	if info.get('landing', false):

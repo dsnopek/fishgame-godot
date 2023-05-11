@@ -1,12 +1,17 @@
-tool
+@tool
 extends Node
 
-export (String, MULTILINE) var allowed_transitions setget set_allowed_transitions
+var _allowed_transitions := ""
+@export_multiline var allowed_transitions: String:
+	set(v):
+		set_allowed_transitions(v)
+	get:
+		return _allowed_transitions
 
 var current_state
 var allowed_transitions_parsed := {}
 
-signal state_changed (state, info)
+signal state_changed (state)
 
 # @todo Causes some error in game!
 #func _get_configuration_warning() -> String:
@@ -18,17 +23,17 @@ signal state_changed (state, info)
 #		return "All direct children of StateMachine must be State: " + bad_children.join(", ")
 #	return ""
 
-func set_allowed_transitions(_allowed_transitions) -> void:
-	if allowed_transitions != _allowed_transitions:
-		allowed_transitions = _allowed_transitions
-		
+func set_allowed_transitions(p_allowed_transitions) -> void:
+	if _allowed_transitions != p_allowed_transitions:
+		_allowed_transitions = p_allowed_transitions
+
 		allowed_transitions_parsed = {}
-		for line in allowed_transitions.split("\n", false):
+		for line in _allowed_transitions.split("\n", false):
 			var parts = line.split("->", false)
 			if parts.size() == 2:
 				var start = parts[0].strip_edges()
 				var end = parts[1].strip_edges()
-				
+
 				if !allowed_transitions_parsed.has(start):
 					allowed_transitions_parsed[start] = []
 				allowed_transitions_parsed[start].append(end)
@@ -46,21 +51,22 @@ func change_state(name : String, info : Dictionary = {}):
 	var next_state = get_node(name)
 	if next_state == null:
 		return
-	
+
 	if current_state == next_state:
 		return
-	
+
 	if current_state:
 		if !check_allowed_transition(current_state.name, next_state.name):
+			push_error("Transition from %s to %s not allowed" % [current_state.name, next_state.name])
 			return
 
 	if current_state:
 		if current_state.has_method('_state_exit'):
 			current_state._state_exit()
-	
+
 	var previous_state = current_state
 	current_state = next_state
-	
+
 	# Re-enable processing for the current state
 	if current_state.has_method('_input'):
 		current_state.set_process_input(true)
@@ -71,13 +77,13 @@ func change_state(name : String, info : Dictionary = {}):
 	if current_state.has_method('_process'):
 		current_state.set_process(true)
 	if current_state.has_method('_physics_process'):
-		current_state.set_physics_process(true)	
-	
+		current_state.set_physics_process(true)
+
 	if current_state != previous_state:
 		if current_state.has_method('_state_enter'):
 			current_state._state_enter(info)
-	
-	emit_signal("state_changed", current_state, info)
+
+	emit_signal("state_changed", current_state)
 
 func _input(event: InputEvent) -> void:
 	if current_state and current_state.has_method('_state_input'):
@@ -87,7 +93,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if current_state and current_state.has_method('_state_unhandled_input'):
 		current_state._state_unhandled_input(event)
 
-func _unhandled_key_input(event: InputEventKey) -> void:
+func _unhandled_key_input(event: InputEvent) -> void:
 	if current_state and current_state.has_method('_state_unhandled_key_input'):
 		current_state._state_unhandled_key_input(event)
 

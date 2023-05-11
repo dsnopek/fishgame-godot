@@ -5,7 +5,7 @@
 
 [node name="HBoxContainer" type="HBoxContainer"]
 anchor_right = 1.0
-margin_bottom = 14.0
+offset_bottom = 14.0
 size_flags_horizontal = 3
 script = ExtResource( 2 )
 __meta__ = {
@@ -13,26 +13,26 @@ __meta__ = {
 }
 
 [node name="Spacer1" type="Control" parent="."]
-margin_right = 10.0
-margin_bottom = 14.0
-rect_min_size = Vector2( 10, 0 )
+offset_right = 10.0
+offset_bottom = 14.0
+custom_minimum_size = Vector2( 10, 0 )
 
 [node name="UsernameLabel" type="Label" parent="."]
-margin_left = 14.0
-margin_right = 522.0
-margin_bottom = 14.0
+offset_left = 14.0
+offset_right = 522.0
+offset_bottom = 14.0
 size_flags_horizontal = 3
 text = "Username"
 
 [node name="WinsLabel" type="Label" parent="."]
-margin_left = 526.0
-margin_right = 626.0
-margin_bottom = 14.0
-rect_min_size = Vector2( 100, 0 )
+offset_left = 526.0
+offset_right = 626.0
+offset_bottom = 14.0
+custom_minimum_size = Vector2( 100, 0 )
 text = "10"
 
 [node name="Spacer2" type="Control" parent="."]
-margin_left = 630.0
-margin_right = 640.0
-margin_bottom = 14.0
-rect_min_size = Vector2( 10, 0 )
+offset_left = 630.0
+offset_right = 640.0
+offset_bottom = 14.0
+custom_minimum_size = Vector2( 10, 0 )

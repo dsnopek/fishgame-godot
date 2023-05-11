@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 
 var action_prefix := ''
 var actions := []

@@ -1,11 +1,11 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/theme.tres" type="Theme" id=1]
-[ext_resource path="res://assets/fonts/monogram.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://assets/fonts/monogram.tres" type="DynamicFont" id=3]
+[ext_resource path="res://assets/fonts/monogram.ttf" type="FontFile" id=2]
+[ext_resource path="res://assets/fonts/monogram.tres" type="FontFile" id=3]
 [ext_resource path="res://main/screens/ConnectionScreen.gd" type="Script" id=4]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="FontFile" id=1]
 size = 36
 font_data = ExtResource( 2 )
 
@@ -21,10 +21,10 @@ __meta__ = {
 [node name="TabContainer" type="TabContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 50.0
-margin_top = 50.0
-margin_right = -50.0
-margin_bottom = -50.0
+offset_left = 50.0
+offset_top = 50.0
+offset_right = -50.0
+offset_bottom = -50.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -32,71 +32,71 @@ __meta__ = {
 [node name="Login" type="Control" parent="TabContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 42.0
-margin_right = -4.0
-margin_bottom = -4.0
+offset_left = 4.0
+offset_top = 42.0
+offset_right = -4.0
+offset_bottom = -4.0
 
 [node name="GridContainer" type="GridContainer" parent="TabContainer/Login"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -266.0
-margin_top = -75.0
-margin_right = 266.0
-margin_bottom = 9.0
+offset_left = -266.0
+offset_top = -75.0
+offset_right = 266.0
+offset_bottom = 9.0
 columns = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="EmailLabel" type="Label" parent="TabContainer/Login/GridContainer"]
-margin_top = 5.0
-margin_right = 99.0
-margin_bottom = 29.0
-custom_fonts/font = ExtResource( 3 )
+offset_top = 5.0
+offset_right = 99.0
+offset_bottom = 29.0
+theme_override_fonts/font = ExtResource( 3 )
 text = "E-mail:"
 
 [node name="Email" type="LineEdit" parent="TabContainer/Login/GridContainer"]
-margin_left = 103.0
-margin_right = 532.0
-margin_bottom = 34.0
+offset_left = 103.0
+offset_right = 532.0
+offset_bottom = 34.0
 size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 3 )
+theme_override_fonts/font = ExtResource( 3 )
 caret_blink = true
 
 [node name="PasswordLabel" type="Label" parent="TabContainer/Login/GridContainer"]
-margin_top = 43.0
-margin_right = 99.0
-margin_bottom = 67.0
-custom_fonts/font = ExtResource( 3 )
+offset_top = 43.0
+offset_right = 99.0
+offset_bottom = 67.0
+theme_override_fonts/font = ExtResource( 3 )
 text = "Password:"
 
 [node name="Password" type="LineEdit" parent="TabContainer/Login/GridContainer"]
-margin_left = 103.0
-margin_top = 38.0
-margin_right = 532.0
-margin_bottom = 72.0
+offset_left = 103.0
+offset_top = 38.0
+offset_right = 532.0
+offset_bottom = 72.0
 size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 3 )
+theme_override_fonts/font = ExtResource( 3 )
 secret = true
 caret_blink = true
 
 [node name="Empty" type="Control" parent="TabContainer/Login/GridContainer"]
-margin_top = 76.0
-margin_right = 99.0
-margin_bottom = 113.0
+offset_top = 76.0
+offset_right = 99.0
+offset_bottom = 113.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="SaveCheckBox" type="CheckBox" parent="TabContainer/Login/GridContainer"]
-margin_left = 103.0
-margin_top = 76.0
-margin_right = 532.0
-margin_bottom = 113.0
-custom_fonts/font = SubResource( 1 )
+offset_left = 103.0
+offset_top = 76.0
+offset_right = 532.0
+offset_bottom = 113.0
+theme_override_fonts/font = SubResource( 1 )
 pressed = true
 text = "Save email and password"
 
@@ -105,9 +105,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -33.5
-margin_top = -50.0
-margin_right = 33.5
+offset_left = -33.5
+offset_top = -50.0
+offset_right = 33.5
 text = "Login"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -117,10 +117,10 @@ __meta__ = {
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 42.0
-margin_right = -4.0
-margin_bottom = -4.0
+offset_left = 4.0
+offset_top = 42.0
+offset_right = -4.0
+offset_bottom = -4.0
 
 [node name="GridContainer" type="GridContainer" parent="TabContainer/Create Account"]
 anchor_right = 1.0
@@ -131,67 +131,67 @@ __meta__ = {
 }
 
 [node name="UsernameLabel" type="Label" parent="TabContainer/Create Account/GridContainer"]
-margin_top = 5.0
-margin_right = 99.0
-margin_bottom = 29.0
-custom_fonts/font = ExtResource( 3 )
+offset_top = 5.0
+offset_right = 99.0
+offset_bottom = 29.0
+theme_override_fonts/font = ExtResource( 3 )
 text = "Username:"
 
 [node name="Username" type="LineEdit" parent="TabContainer/Create Account/GridContainer"]
-margin_left = 103.0
-margin_right = 532.0
-margin_bottom = 34.0
+offset_left = 103.0
+offset_right = 532.0
+offset_bottom = 34.0
 size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 3 )
+theme_override_fonts/font = ExtResource( 3 )
 caret_blink = true
 
 [node name="EmailLabel" type="Label" parent="TabContainer/Create Account/GridContainer"]
-margin_top = 43.0
-margin_right = 99.0
-margin_bottom = 67.0
-custom_fonts/font = ExtResource( 3 )
+offset_top = 43.0
+offset_right = 99.0
+offset_bottom = 67.0
+theme_override_fonts/font = ExtResource( 3 )
 text = "E-mail:"
 
 [node name="Email" type="LineEdit" parent="TabContainer/Create Account/GridContainer"]
-margin_left = 103.0
-margin_top = 38.0
-margin_right = 532.0
-margin_bottom = 72.0
+offset_left = 103.0
+offset_top = 38.0
+offset_right = 532.0
+offset_bottom = 72.0
 size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 3 )
+theme_override_fonts/font = ExtResource( 3 )
 caret_blink = true
 
 [node name="PasswordLabel" type="Label" parent="TabContainer/Create Account/GridContainer"]
-margin_top = 81.0
-margin_right = 99.0
-margin_bottom = 105.0
-custom_fonts/font = ExtResource( 3 )
+offset_top = 81.0
+offset_right = 99.0
+offset_bottom = 105.0
+theme_override_fonts/font = ExtResource( 3 )
 text = "Password:"
 
 [node name="Password" type="LineEdit" parent="TabContainer/Create Account/GridContainer"]
-margin_left = 103.0
-margin_top = 76.0
-margin_right = 532.0
-margin_bottom = 110.0
+offset_left = 103.0
+offset_top = 76.0
+offset_right = 532.0
+offset_bottom = 110.0
 size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 3 )
+theme_override_fonts/font = ExtResource( 3 )
 secret = true
 caret_blink = true
 
 [node name="Empty" type="Control" parent="TabContainer/Create Account/GridContainer"]
-margin_top = 114.0
-margin_right = 99.0
-margin_bottom = 151.0
+offset_top = 114.0
+offset_right = 99.0
+offset_bottom = 151.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="SaveCheckBox" type="CheckBox" parent="TabContainer/Create Account/GridContainer"]
-margin_left = 103.0
-margin_top = 114.0
-margin_right = 532.0
-margin_bottom = 151.0
-custom_fonts/font = SubResource( 1 )
+offset_left = 103.0
+offset_top = 114.0
+offset_right = 532.0
+offset_bottom = 151.0
+theme_override_fonts/font = SubResource( 1 )
 pressed = true
 text = "Save email and password"
 
@@ -200,9 +200,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -83.0
-margin_top = -54.0
-margin_right = 83.0
+offset_left = -83.0
+offset_top = -54.0
+offset_right = 83.0
 text = "Create Account"
 [connection signal="pressed" from="TabContainer/Login/LoginButton" to="." method="_on_LoginButton_pressed"]
 [connection signal="pressed" from="TabContainer/Create Account/CreateAccountButton" to="." method="_on_CreateAccountButton_pressed"]

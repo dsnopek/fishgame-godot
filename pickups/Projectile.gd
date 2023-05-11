@@ -1,9 +1,9 @@
 extends Area2D
 
-onready var ray_cast := $RayCast2D
-onready var trail := $Trail
-onready var hitbox := $Hitbox
-onready var animation_player := $AnimationPlayer
+@onready var ray_cast := $RayCast2D
+@onready var trail := $Trail
+@onready var hitbox := $Hitbox
+@onready var animation_player := $AnimationPlayer
 
 var vector := Vector2.ZERO
 var start_position := Vector2.ZERO
@@ -11,7 +11,7 @@ var max_distance := 0.0
 var dud := false
 
 func _ready():
-	trail.set_as_toplevel(true)
+	trail.set_as_top_level(true)
 	trail.global_position = Vector2(0, 0)
 
 func shoot(_start_position: Vector2, _vector: Vector2, _max_distance: float, _dud: bool) -> void:
@@ -37,7 +37,7 @@ func _physics_process(delta: float) -> void:
 		trail.remove_point(0)
 	
 	var increment = vector * delta
-	ray_cast.cast_to = increment
+	ray_cast.target_position = increment
 	ray_cast.force_raycast_update()
 	if ray_cast.is_colliding():
 		global_position = ray_cast.get_collision_point()

@@ -1,18 +1,18 @@
-extends KinematicBody2D
+extends CharacterBody2D
 class_name Pickup
 
-onready var held_position: Position2D = $HeldPosition
-onready var original_parent: Node2D = get_parent()
-onready var gravity: float = float(ProjectSettings.get_setting("physics/2d/default_gravity"))
-onready var linear_damp: float = float(ProjectSettings.get_setting("physics/2d/default_linear_damp"))
-onready var angular_damp: float = float(ProjectSettings.get_setting("physics/2d/default_angular_damp"))
+@onready var held_position: Marker2D = $HeldPosition
+@onready var original_parent: Node2D = get_parent()
+@onready var gravity: float = float(ProjectSettings.get_setting("physics/2d/default_gravity"))
+@onready var linear_damp: float = float(ProjectSettings.get_setting("physics/2d/default_linear_damp"))
+@onready var angular_damp: float = float(ProjectSettings.get_setting("physics/2d/default_angular_damp"))
 
 enum PickupPosition {
 	FRONT,
 	BACK,
 }
 
-export (PickupPosition) var pickup_position = PickupPosition.FRONT
+@export (PickupPosition) var pickup_position = PickupPosition.FRONT
 
 enum PickupState {
 	FREE = 0,

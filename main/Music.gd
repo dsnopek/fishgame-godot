@@ -1,10 +1,10 @@
 extends Node
 
-export (float) var cross_fade_duration = 2.0
+@export (float) var cross_fade_duration = 2.0
 
 signal song_finished (song)
 
-onready var tween = $Tween
+@onready var tween = $Tween
 
 var current_song
 var initial_volume_dbs := {}
@@ -13,7 +13,7 @@ func _ready() -> void:
 	for child in get_children():
 		if child is AudioStreamPlayer:
 			initial_volume_dbs[child.name] = child.volume_db
-			child.connect("finished", self, "_on_song_finished", [child])
+			child.connect("finished", Callable(self, "_on_song_finished").bind(child))
 
 func play(song_name: String) -> void:
 	var next_song = get_node(song_name)

@@ -1,14 +1,14 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/fonts/monogram.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/fonts/monogram.ttf" type="FontFile" id=1]
 [ext_resource path="res://assets/theme.tres" type="Theme" id=2]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="FontFile" id=1]
 size = 28
-extra_spacing_bottom = 3
+spacing_bottom = 3
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="FontFile" id=2]
 size = 24
 font_data = ExtResource( 1 )
 
@@ -30,22 +30,22 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="."]
 anchor_right = 1.0
-margin_top = 25.0
-margin_bottom = 48.0
+offset_top = 25.0
+offset_bottom = 48.0
 text = "Credits"
 align = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 15.0
-margin_top = 89.0
-margin_right = -15.0
-margin_bottom = -15.0
-custom_fonts/bold_font = SubResource( 1 )
-custom_fonts/normal_font = SubResource( 2 )
+offset_left = 15.0
+offset_top = 89.0
+offset_right = -15.0
+offset_bottom = -15.0
+theme_override_fonts/bold_font = SubResource( 1 )
+theme_override_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
-bbcode_text = "[b]Programming:[/b]
+text = "[b]Programming:[/b]
 	[color=aqua]David Snopek[/color] from [color=yellow][url=https://www.snopekgames.com]Snopek Games[/url][/color]
 
 [b]Art:[/b]

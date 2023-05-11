@@ -1,9 +1,9 @@
 extends Camera2D
 
-export (NodePath) var player_container_path
-export (float, 0.1, 0.5) var zoom_offset := 0.2
+@export (NodePath) var player_container_path
+@export (float, 0.1, 0.5) var zoom_offset := 0.2
 
-export (float) var custom_smoothing := 2.0
+@export (float) var custom_smoothing := 2.0
 
 var player_container: Node2D
 

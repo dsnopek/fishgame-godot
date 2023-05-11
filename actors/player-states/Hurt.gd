@@ -1,7 +1,7 @@
 extends "res://addons/snopek-state-machine/State.gd"
 
-onready var host = $"../.."
-onready var timer = $Timer
+@onready var host = $"../.."
+@onready var timer = $Timer
 
 func _state_enter(info: Dictionary) -> void:
 	host.play_animation("Hurt")

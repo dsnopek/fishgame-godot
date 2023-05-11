@@ -1,10 +1,10 @@
 extends Pickup
 
-onready var animation_player = $AnimationPlayer
-onready var sounds = $Sounds
+@onready var animation_player = $AnimationPlayer
+@onready var sounds = $Sounds
 
 func _get_custom_rpc_methods() -> Array:
-	return ._get_custom_rpc_methods() + [
+	return super._get_custom_rpc_methods() + [
 		'_do_use',
 	]
 

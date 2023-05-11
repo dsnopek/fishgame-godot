@@ -1,16 +1,16 @@
 extends "res://main/Screen.gd"
 
-onready var matchmaker_player_count_control := $PanelContainer/VBoxContainer/MatchPanel/SpinBox
-onready var join_match_id_control := $PanelContainer/VBoxContainer/JoinPanel/LineEdit
+@onready var matchmaker_player_count_control := $PanelContainer/VBoxContainer/MatchPanel/SpinBox
+@onready var join_match_id_control := $PanelContainer/VBoxContainer/JoinPanel/LineEdit
 
 func _ready() -> void:
-	$PanelContainer/VBoxContainer/MatchPanel/MatchButton.connect("pressed", self, "_on_match_button_pressed", [OnlineMatch.MatchMode.MATCHMAKER])
-	$PanelContainer/VBoxContainer/CreatePanel/CreateButton.connect("pressed", self, "_on_match_button_pressed", [OnlineMatch.MatchMode.CREATE])
-	$PanelContainer/VBoxContainer/JoinPanel/JoinButton.connect("pressed", self, "_on_match_button_pressed", [OnlineMatch.MatchMode.JOIN])
+	$PanelContainer/VBoxContainer/MatchPanel/MatchButton.connect("pressed", Callable(self, "_on_match_button_pressed").bind(OnlineMatch.MatchMode.MATCHMAKER))
+	$PanelContainer/VBoxContainer/CreatePanel/CreateButton.connect("pressed", Callable(self, "_on_match_button_pressed").bind(OnlineMatch.MatchMode.CREATE))
+	$PanelContainer/VBoxContainer/JoinPanel/JoinButton.connect("pressed", Callable(self, "_on_match_button_pressed").bind(OnlineMatch.MatchMode.JOIN))
 	
-	OnlineMatch.connect("matchmaker_matched", self, "_on_OnlineMatch_matchmaker_matched")
-	OnlineMatch.connect("match_created", self, "_on_OnlineMatch_created")
-	OnlineMatch.connect("match_joined", self, "_on_OnlineMatch_joined")
+	OnlineMatch.connect("matchmaker_matched", Callable(self, "_on_OnlineMatch_matchmaker_matched"))
+	OnlineMatch.connect("match_created", Callable(self, "_on_OnlineMatch_created"))
+	OnlineMatch.connect("match_joined", Callable(self, "_on_OnlineMatch_joined"))
 
 func _show_screen(_info: Dictionary = {}) -> void:
 	matchmaker_player_count_control.value = 2
@@ -22,14 +22,14 @@ func _on_match_button_pressed(mode) -> void:
 		ui_layer.show_screen("ConnectionScreen", { reconnect = true, next_screen = null })
 		
 		# Wait to see if we get a new valid session.
-		yield(Online, "session_changed")
+		await Online.session_changed
 		if Online.nakama_session == null:
 			return
 	
 	# Connect socket to realtime Nakama API if not connected.
 	if not Online.is_nakama_socket_connected():
 		Online.connect_nakama_socket()
-		yield(Online, "socket_connected")
+		await Online.socket_connected
 	
 	ui_layer.hide_message()
 	

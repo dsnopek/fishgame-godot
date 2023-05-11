@@ -9,9 +9,9 @@ var nakama_port: int = 7350
 var nakama_scheme: String = 'http'
 
 # For other scripts to access:
-var nakama_client: NakamaClient setget _set_readonly_variable, get_nakama_client
-var nakama_session: NakamaSession setget set_nakama_session
-var nakama_socket: NakamaSocket setget _set_readonly_variable
+var nakama_client: NakamaClient: get = get_nakama_client, set = _set_readonly_variable
+var nakama_session: NakamaSession: set = set_nakama_session
+var nakama_socket: NakamaSocket: set = _set_readonly_variable
 
 # Internal variable for initializing the socket.
 var _nakama_socket_connecting := false
@@ -25,7 +25,7 @@ func _set_readonly_variable(_value) -> void:
 
 func _ready() -> void:
 	# Don't stop processing messages from Nakama when the game is paused.
-	Nakama.pause_mode = Node.PAUSE_MODE_PROCESS
+	Nakama.process_mode = Node.PROCESS_MODE_ALWAYS
 
 func get_nakama_client() -> NakamaClient:
 	if nakama_client == null:
@@ -60,7 +60,7 @@ func connect_nakama_socket() -> void:
 	_nakama_socket_connecting = true
 	
 	var new_socket = Nakama.create_socket_from(nakama_client)
-	yield(new_socket.connect_async(nakama_session), "completed")
+	await new_socket.connect_async(nakama_session).completed
 	nakama_socket = new_socket
 	_nakama_socket_connecting = false
 	

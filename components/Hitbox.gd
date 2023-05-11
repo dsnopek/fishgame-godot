@@ -1,6 +1,6 @@
 extends Area2D
 
-export (bool) var disabled := false setget set_disabled
+@export (bool) var disabled := false: set = set_disabled
 
 func _ready() -> void:
 	_update_disabled()

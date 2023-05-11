@@ -1,6 +1,6 @@
 extends CPUParticles2D
 
-onready var sounds = $Sounds
+@onready var sounds = $Sounds
 
 func _ready():
 	emitting = true

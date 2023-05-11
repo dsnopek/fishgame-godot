@@ -1,11 +1,11 @@
 extends HBoxContainer
 
-onready var name_label := $NameLabel
-onready var status_label := $StatusLabel
-onready var score_label := $ScoreLabel
+@onready var name_label := $NameLabel
+@onready var status_label := $StatusLabel
+@onready var score_label := $ScoreLabel
 
-var status := "" setget set_status
-var score := 0 setget set_score
+var status := "": set = set_status
+var score := 0: set = set_score
 
 func initialize(_name: String, _status: String = "Connecting...", _score: int = 0) -> void:
 	name_label.text = _name

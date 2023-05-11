@@ -1,7 +1,7 @@
-extends KinematicBody2D
+extends CharacterBody2D
 
 var ExplodeEffect: PackedScene = preload("res://actors/ExplodeEffect.tscn")
-var InputBuffer: Reference = preload("res://components/InputBuffer.gd")
+var InputBuffer: RefCounted = preload("res://components/InputBuffer.gd")
 
 enum PlayerSkin {
 	ORANGE,
@@ -18,53 +18,53 @@ var skin_resources = [
 	preload("res://assets/sprites/whale_purple.png"),
 ]
 
-export (PlayerSkin) var player_skin := PlayerSkin.BLUE setget set_player_skin
-export (float) var speed := 350.0
-export (float) var acceleration := 2000.0
-export (float) var friction := 1500.0
-export (float) var sliding_friction := 400.0
-export (float) var jump_speed := 700.0
-export (float) var glide_speed := -100.0
-export (float) var terminal_velocity := 1000.0
-export (float) var push_back_speed := 50.0
-export (float) var throw_velocity := 300.0
-export (float) var throw_upward_velocity := 500.0
-export (float) var throw_vector_mix := 0.5
-export (float) var throw_vector_max_length := 700.0
-export (float) var throw_torque := 10.0
-export (bool) var invincible := false
-export (bool) var player_controlled := false
-export (String) var input_prefix := "player1_"
+@export (PlayerSkin) var player_skin := PlayerSkin.BLUE: set = set_player_skin
+@export (float) var speed := 350.0
+@export (float) var acceleration := 2000.0
+@export (float) var friction := 1500.0
+@export (float) var sliding_friction := 400.0
+@export (float) var jump_speed := 700.0
+@export (float) var glide_speed := -100.0
+@export (float) var terminal_velocity := 1000.0
+@export (float) var push_back_speed := 50.0
+@export (float) var throw_velocity := 300.0
+@export (float) var throw_upward_velocity := 500.0
+@export (float) var throw_vector_mix := 0.5
+@export (float) var throw_vector_max_length := 700.0
+@export (float) var throw_torque := 10.0
+@export (bool) var invincible := false
+@export (bool) var player_controlled := false
+@export (String) var input_prefix := "player1_"
 
 signal player_dead ()
 
-onready var initial_scale = scale
-onready var body_sprite: Sprite = $BodySprite
-onready var fin_sprite: Sprite = $FinSprite
-onready var back_pickup_position: Position2D = $BackPickupPosition
-onready var front_pickup_position: Position2D = $FrontPickupPosition
-onready var pickup_area: Area2D = $PickupArea
-onready var state_machine := $StateMachine
-onready var sprite_animation_player: AnimationPlayer = $SpriteAnimationPlayer
-onready var pickup_animation_player: AnimationPlayer = $PickupAnimationPlayer
-onready var sounds := $Sounds
+@onready var initial_scale = scale
+@onready var body_sprite: Sprite2D = $BodySprite
+@onready var fin_sprite: Sprite2D = $FinSprite
+@onready var back_pickup_position: Marker2D = $BackPickupPosition
+@onready var front_pickup_position: Marker2D = $FrontPickupPosition
+@onready var pickup_area: Area2D = $PickupArea
+@onready var state_machine := $StateMachine
+@onready var sprite_animation_player: AnimationPlayer = $SpriteAnimationPlayer
+@onready var pickup_animation_player: AnimationPlayer = $PickupAnimationPlayer
+@onready var sounds := $Sounds
 
-onready var standing_collision_shape := $StandingCollisionShape
-onready var ducking_collision_shape := $DuckingCollisionShape
-onready var sliding_collision_shape := $SlidingCollisionShape
+@onready var standing_collision_shape := $StandingCollisionShape
+@onready var ducking_collision_shape := $DuckingCollisionShape
+@onready var sliding_collision_shape := $SlidingCollisionShape
 
-onready var gravity: float = float(ProjectSettings.get_setting("physics/2d/default_gravity"))
+@onready var gravity: float = float(ProjectSettings.get_setting("physics/2d/default_gravity"))
 
-var flip_h := false setget set_flip_h
-var show_gliding := false setget set_show_gliding
-var show_sliding := false setget set_show_sliding
+var flip_h := false: set = set_flip_h
+var show_gliding := false: set = set_show_gliding
+var show_sliding := false: set = set_show_sliding
 
 const ONE_WAY_PLATFORMS_COLLISION_BIT := 4
-var pass_through_one_way_platforms := false setget set_pass_through_one_way_platforms
+var pass_through_one_way_platforms := false: set = set_pass_through_one_way_platforms
 
 var vector := Vector2.ZERO
-var current_pickup: KinematicBody2D
-var current_pickup_position: Position2D
+var current_pickup: CharacterBody2D
+var current_pickup_position: Marker2D
 
 const PlayerActions := ['left', 'right', 'down', 'jump', 'grab', 'use', 'blop']
 var input_buffer
@@ -116,7 +116,7 @@ func set_flip_h(_flip_h: bool) -> void:
 func set_pass_through_one_way_platforms(_pass_through: bool) -> void:
 	if pass_through_one_way_platforms != _pass_through:
 		pass_through_one_way_platforms = _pass_through
-		set_collision_mask_bit(ONE_WAY_PLATFORMS_COLLISION_BIT, !_pass_through)
+		set_collision_mask_value(ONE_WAY_PLATFORMS_COLLISION_BIT, !_pass_through)
 
 func _on_PassThroughDetectorArea_body_exited(body: Node) -> void:
 	self.pass_through_one_way_platforms = false
@@ -147,7 +147,7 @@ func get_current_animation() -> String:
 
 func _on_BodySprite_frame_changed() -> void:
 	if not fin_sprite or not body_sprite:
-		yield(self, "ready")
+		await self.ready
 	fin_sprite.frame = body_sprite.frame + 7
 
 func reset_state() -> void:
@@ -211,7 +211,7 @@ func _do_throw() -> void:
 	current_pickup.original_parent.add_child(current_pickup)
 	current_pickup.global_position = current_pickup_position.global_position
 	
-	current_pickup.throw(current_pickup_position.global_position, throw_vector.clamped(throw_vector_max_length), throw_torque)
+	current_pickup.throw(current_pickup_position.global_position, throw_vector.limit_length(throw_vector_max_length), throw_torque)
 	current_pickup = null
 	current_pickup_position = null
 
@@ -247,7 +247,7 @@ func die() -> void:
 		_do_die();
 
 func _do_die() -> void:
-	var explosion = ExplodeEffect.instance()
+	var explosion = ExplodeEffect.instantiate()
 	get_parent().add_child(explosion)
 	explosion.global_position = global_position
 	
@@ -271,7 +271,10 @@ func _physics_process(delta: float) -> void:
 	vector.y += (gravity * delta)
 	if vector.y > terminal_velocity:
 		vector.y = terminal_velocity
-	vector = move_and_slide(vector, Vector2.UP)
+	set_velocity(vector)
+	set_up_direction(Vector2.UP)
+	move_and_slide()
+	vector = velocity
 	
 	if GameState.online_play:
 		if player_controlled:

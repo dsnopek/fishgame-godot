@@ -1,4 +1,5 @@
 /.import/
+/.godot/
 /build/
 *.swp
 /webrtc_debug/

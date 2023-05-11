@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://assets/kenney-platform-deluxe/request/rockSmall.png" type="Texture" id=1]
+[ext_resource path="res://assets/kenney-platform-deluxe/request/rockSmall.png" type="Texture2D" id=1]
 [ext_resource path="res://pickups/DisintegrateEffect.gd" type="Script" id=2]
 [ext_resource path="res://pickups/DisintegrateEffectGradient.tres" type="Gradient" id=3]
 

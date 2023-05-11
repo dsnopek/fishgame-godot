@@ -2,7 +2,7 @@ extends Node
 
 func play(name: String):
 	var node = get_node(name)
-	assert(node != null, "No sound with name " + name)
+	assert(node != null) #,"No sound with name " + name)
 	
 	if node is AudioStreamPlayer:
 		node.play()

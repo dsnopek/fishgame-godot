@@ -1,10 +1,10 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/fonts/monogram_extended.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/fonts/monogram_extended.ttf" type="FontFile" id=1]
 [ext_resource path="res://assets/theme.tres" type="Theme" id=2]
 [ext_resource path="res://main/screens/TitleScreen.gd" type="Script" id=3]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="FontFile" id=1]
 size = 160
 font_data = ExtResource( 1 )
 
@@ -27,9 +27,9 @@ __meta__ = {
 
 [node name="TitleLabel" type="Label" parent="."]
 anchor_right = 1.0
-margin_top = 25.0
-margin_bottom = 130.0
-custom_fonts/font = SubResource( 1 )
+offset_top = 25.0
+offset_bottom = 130.0
+theme_override_fonts/font = SubResource( 1 )
 text = "Fish Game"
 align = 1
 __meta__ = {
@@ -40,34 +40,34 @@ __meta__ = {
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -175.0
-margin_bottom = -50.0
-rect_min_size = Vector2( 0, 125 )
-custom_constants/separation = 35
+offset_top = -175.0
+offset_bottom = -50.0
+custom_minimum_size = Vector2( 0, 125 )
+theme_override_constants/separation = 35
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="LocalButton" type="Button" parent="HBoxContainer"]
-margin_left = 97.0
-margin_right = 222.0
-margin_bottom = 125.0
-rect_min_size = Vector2( 125, 0 )
+offset_left = 97.0
+offset_right = 222.0
+offset_bottom = 125.0
+custom_minimum_size = Vector2( 125, 0 )
 text = "Local"
 
 [node name="OnlineButton" type="Button" parent="HBoxContainer"]
-margin_left = 257.0
-margin_right = 382.0
-margin_bottom = 125.0
-rect_min_size = Vector2( 125, 0 )
+offset_left = 257.0
+offset_right = 382.0
+offset_bottom = 125.0
+custom_minimum_size = Vector2( 125, 0 )
 text = "Online"
 
 [node name="CreditsButton" type="Button" parent="HBoxContainer"]
-margin_left = 417.0
-margin_right = 542.0
-margin_bottom = 125.0
-rect_min_size = Vector2( 125, 0 )
+offset_left = 417.0
+offset_right = 542.0
+offset_bottom = 125.0
+custom_minimum_size = Vector2( 125, 0 )
 text = "Credits"
 [connection signal="pressed" from="HBoxContainer/LocalButton" to="." method="_on_LocalButton_pressed"]
 [connection signal="pressed" from="HBoxContainer/OnlineButton" to="." method="_on_OnlineButton_pressed"]

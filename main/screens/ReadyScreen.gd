@@ -2,21 +2,21 @@ extends "res://main/Screen.gd"
 
 var PeerStatus = preload("res://main/screens/PeerStatus.tscn");
 
-onready var ready_button := $Panel/ReadyButton
-onready var match_id_container := $Panel/MatchIDContainer
-onready var match_id_label := $Panel/MatchIDContainer/MatchID
-onready var status_container := $Panel/StatusContainer
+@onready var ready_button := $Panel/ReadyButton
+@onready var match_id_container := $Panel/MatchIDContainer
+@onready var match_id_label := $Panel/MatchIDContainer/MatchID
+@onready var status_container := $Panel/StatusContainer
 
 signal ready_pressed ()
 
 func _ready() -> void:
 	clear_players()
 	
-	OnlineMatch.connect("player_joined", self, "_on_OnlineMatch_player_joined")
-	OnlineMatch.connect("player_left", self, "_on_OnlineMatch_player_left")
-	OnlineMatch.connect("player_status_changed", self, "_on_OnlineMatch_player_status_changed")
-	OnlineMatch.connect("match_ready", self, "_on_OnlineMatch_match_ready")
-	OnlineMatch.connect("match_not_ready", self, "_on_OnlineMatch_match_not_ready")
+	OnlineMatch.connect("player_joined", Callable(self, "_on_OnlineMatch_player_joined"))
+	OnlineMatch.connect("player_left", Callable(self, "_on_OnlineMatch_player_left"))
+	OnlineMatch.connect("player_status_changed", Callable(self, "_on_OnlineMatch_player_status_changed"))
+	OnlineMatch.connect("match_ready", Callable(self, "_on_OnlineMatch_match_ready"))
+	OnlineMatch.connect("match_not_ready", Callable(self, "_on_OnlineMatch_match_not_ready"))
 
 func _show_screen(info: Dictionary = {}) -> void:
 	var players: Dictionary = info.get("players", {})
@@ -48,7 +48,7 @@ func hide_match_id() -> void:
 
 func add_player(session_id: String, username: String) -> void:
 	if not status_container.has_node(session_id):
-		var status = PeerStatus.instance()
+		var status = PeerStatus.instantiate()
 		status_container.add_child(status)
 		status.initialize(username)
 		status.name = session_id
