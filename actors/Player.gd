@@ -18,23 +18,23 @@ var skin_resources = [
 	preload("res://assets/sprites/whale_purple.png"),
 ]
 
-@export (PlayerSkin) var player_skin := PlayerSkin.BLUE: set = set_player_skin
-@export (float) var speed := 350.0
-@export (float) var acceleration := 2000.0
-@export (float) var friction := 1500.0
-@export (float) var sliding_friction := 400.0
-@export (float) var jump_speed := 700.0
-@export (float) var glide_speed := -100.0
-@export (float) var terminal_velocity := 1000.0
-@export (float) var push_back_speed := 50.0
-@export (float) var throw_velocity := 300.0
-@export (float) var throw_upward_velocity := 500.0
-@export (float) var throw_vector_mix := 0.5
-@export (float) var throw_vector_max_length := 700.0
-@export (float) var throw_torque := 10.0
-@export (bool) var invincible := false
-@export (bool) var player_controlled := false
-@export (String) var input_prefix := "player1_"
+@export var player_skin := PlayerSkin.BLUE: set = set_player_skin
+@export var speed := 350.0
+@export var acceleration := 2000.0
+@export var friction := 1500.0
+@export var sliding_friction := 400.0
+@export var jump_speed := 700.0
+@export var glide_speed := -100.0
+@export var terminal_velocity := 1000.0
+@export var push_back_speed := 50.0
+@export var throw_velocity := 300.0
+@export var throw_upward_velocity := 500.0
+@export var throw_vector_mix := 0.5
+@export var throw_vector_max_length := 700.0
+@export var throw_torque := 10.0
+@export var invincible := false
+@export var player_controlled := false
+@export var input_prefix := "player1_"
 
 signal player_dead ()
 
@@ -78,7 +78,7 @@ func _ready():
 	# Disable the state machine node's _physics_process() so that we can run
 	# it manually from here, and ensure everything happens in the right order.
 	state_machine.set_physics_process(false)
-	
+
 	body_sprite.texture = skin_resources[player_skin]
 	fin_sprite.texture = skin_resources[player_skin]
 	reset_state()
@@ -95,7 +95,7 @@ func _get_custom_rpc_methods() -> Array:
 func set_player_skin(_player_skin: int) -> void:
 	if player_skin != _player_skin and _player_skin < PlayerSkin.MAX and _player_skin >= 0:
 		player_skin = _player_skin
-		
+
 		if body_sprite != null:
 			body_sprite.texture = skin_resources[player_skin]
 			fin_sprite.texture = skin_resources[player_skin]
@@ -107,7 +107,7 @@ func set_player_name(_player_name: String) -> void:
 func set_flip_h(_flip_h: bool) -> void:
 	if flip_h != _flip_h:
 		flip_h = _flip_h
-		
+
 		if flip_h:
 			scale.x = -initial_scale.x * sign(scale.y)
 		else:
@@ -124,7 +124,7 @@ func _on_PassThroughDetectorArea_body_exited(body: Node) -> void:
 func set_show_gliding(_show_gliding: bool) -> void:
 	if show_gliding != _show_gliding:
 		show_gliding = _show_gliding
-		
+
 		if show_gliding:
 			pickup_animation_player.play("RotateUp")
 		else:
@@ -133,7 +133,7 @@ func set_show_gliding(_show_gliding: bool) -> void:
 func set_show_sliding(_show_sliding: bool) -> void:
 	if show_sliding != _show_sliding:
 		show_sliding = _show_sliding
-		
+
 		if show_sliding:
 			pickup_animation_player.play("Slide")
 		else:
@@ -179,12 +179,12 @@ func _try_pickup() -> void:
 		if not body.can_pickup():
 			continue
 		body.pickup_state = Pickup.PickupState.PICKED_UP
-		
+
 		if GameState.online_play:
 			OnlineMatch.custom_rpc_sync(self, '_do_pickup', [body.get_path()])
 		else:
 			_do_pickup(body.get_path())
-		
+
 		return
 
 func _do_pickup(pickup_path: NodePath) -> void:
@@ -192,7 +192,7 @@ func _do_pickup(pickup_path: NodePath) -> void:
 	current_pickup = get_node(pickup_path)
 	current_pickup.pickup(self)
 	current_pickup.get_parent().remove_child(current_pickup)
-	
+
 	current_pickup_position = back_pickup_position if current_pickup.pickup_position == Pickup.PickupPosition.BACK else front_pickup_position
 	current_pickup_position.add_child(current_pickup)
 	current_pickup.position = -current_pickup.held_position.position
@@ -200,17 +200,17 @@ func _do_pickup(pickup_path: NodePath) -> void:
 func _do_throw() -> void:
 	if current_pickup == null:
 		return
-	
+
 	sounds.play("Throw")
 	var throw_vector = (vector * throw_vector_mix) + ((Vector2.LEFT if flip_h else Vector2.RIGHT) * throw_velocity)
 	throw_vector += Vector2.UP * throw_upward_velocity
-	
+
 	# Disconnect from our pickup position.
-	
+
 	current_pickup_position.remove_child(current_pickup)
 	current_pickup.original_parent.add_child(current_pickup)
 	current_pickup.global_position = current_pickup_position.global_position
-	
+
 	current_pickup.throw(current_pickup_position.global_position, throw_vector.limit_length(throw_vector_max_length), throw_torque)
 	current_pickup = null
 	current_pickup_position = null
@@ -224,13 +224,13 @@ func hurt(node: Node2D) -> void:
 	if current_pickup and current_pickup == node.get_parent():
 		# Prevent cutting yourself with your own sword.
 		return
-	
+
 	var current_state_name = state_machine.current_state.name if state_machine.current_state != null else "None"
 	if current_state_name == "Hurt" or current_state_name == "Dead":
 		return
-	
+
 	var push_back_vector = (global_position - node.global_position).normalized() * push_back_speed
-		
+
 	state_machine.change_state("Hurt", {
 		push_back_vector = push_back_vector,
 	})
@@ -250,7 +250,7 @@ func _do_die() -> void:
 	var explosion = ExplodeEffect.instantiate()
 	get_parent().add_child(explosion)
 	explosion.global_position = global_position
-	
+
 	queue_free()
 	emit_signal("player_dead")
 
@@ -261,13 +261,13 @@ func _physics_process(delta: float) -> void:
 	# Initialize the input buffer.
 	if input_buffer == null:
 		input_buffer = InputBuffer.new(PlayerActions, input_prefix)
-	
+
 	var input_buffer_changed := false
 	if player_controlled:
 		input_buffer_changed = input_buffer.update_local()
-	
+
 	state_machine._physics_process(delta)
-	
+
 	vector.y += (gravity * delta)
 	if vector.y > terminal_velocity:
 		vector.y = terminal_velocity
@@ -275,7 +275,7 @@ func _physics_process(delta: float) -> void:
 	set_up_direction(Vector2.UP)
 	move_and_slide()
 	vector = velocity
-	
+
 	if GameState.online_play:
 		if player_controlled:
 			# Sync every so many physics frames.
@@ -293,7 +293,7 @@ func update_remote_player(_input_buffer: Dictionary, current_state: String, stat
 	# Initialize the input buffer.
 	if input_buffer == null:
 		input_buffer = InputBuffer.new(PlayerActions, input_prefix)
-	
+
 	input_buffer.buffer = _input_buffer
 	state_machine.change_state(current_state, state_info)
 	global_position = _position

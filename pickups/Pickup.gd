@@ -12,7 +12,7 @@ enum PickupPosition {
 	BACK,
 }
 
-@export (PickupPosition) var pickup_position = PickupPosition.FRONT
+@export var pickup_position = PickupPosition.FRONT
 
 enum PickupState {
 	FREE = 0,
@@ -65,14 +65,14 @@ func _on_throw_finished() -> void:
 
 func throw(_throw_position: Vector2, _throw_vector: Vector2, _throw_torque: float) -> void:
 	_on_throw()
-	
+
 	pickup_state = PickupState.THROWING
 	player = null
-	
+
 	throw_position = _throw_position
 	linear_velocity = _throw_vector
 	angular_velocity = _throw_torque
-	
+
 	sleeping = false
 
 func use() -> void:
@@ -84,36 +84,36 @@ func _physics_process(delta: float) -> void:
 		return
 	if pickup_state == PickupState.PICKED_UP or pickup_state == PickupState.WORN:
 		return
-	
+
 	if pickup_state == PickupState.THROWING:
 		global_transform = Transform2D(0.0, throw_position)
 		pickup_state = PickupState.THROWN
-	
+
 	# Apply gravity.
 	linear_velocity += (Vector2.DOWN * gravity * delta)
-	
+
 	# Apply linear damp.
 	var ld := 1.0 - (linear_damp * delta)
 	if ld < 0:
 		ld = 0.0
 	linear_velocity *= ld
-	
+
 	# Apply angular damp.
 	var ad := 1.0 - (angular_damp * delta)
 	if ad < 0:
 		ad = 0.0
 	angular_velocity *= ad
-	
+
 	# Rotate/move object and detect collisions.
 	global_rotation += (angular_velocity * delta)
 	var collision: KinematicCollision2D = move_and_collide(linear_velocity * delta)
-	
+
 	# Bounce the object if it collides.
 	if collision:
 		#linear_velocity = collision.normal * collision.remainder.length()
 		linear_velocity = collision.normal * (linear_velocity.length() * bounce)
 		move_and_collide(collision.normal * collision.remainder.length())
-	
+
 	# Sleep the object if it gets below certain linear/angular velocity thresholds.
 	if not GameState.online_play or OnlineMatch.is_network_master_for_node(self):
 		if linear_velocity.length() < MIN_LINEAR_VELOCITY and angular_velocity < MIN_ANGULAR_VELOCITY:
@@ -125,7 +125,7 @@ func _physics_process(delta: float) -> void:
 func _do_physics_finished(_remote_transform = null) -> void:
 	if _remote_transform:
 		global_transform = _remote_transform
-	
+
 	sleeping = true
 	if pickup_state == PickupState.THROWN:
 		_on_throw_finished()

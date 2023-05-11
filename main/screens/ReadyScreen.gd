@@ -11,7 +11,7 @@ signal ready_pressed ()
 
 func _ready() -> void:
 	clear_players()
-	
+
 	OnlineMatch.connect("player_joined", Callable(self, "_on_OnlineMatch_player_joined"))
 	OnlineMatch.connect("player_left", Callable(self, "_on_OnlineMatch_player_left"))
 	OnlineMatch.connect("player_status_changed", Callable(self, "_on_OnlineMatch_player_status_changed"))
@@ -22,19 +22,19 @@ func _show_screen(info: Dictionary = {}) -> void:
 	var players: Dictionary = info.get("players", {})
 	var match_id: String = info.get("match_id", '')
 	var clear: bool = info.get("clear", false)
-	
+
 	if players.size() > 0 or clear:
 		clear_players()
-	
+
 	for session_id in players:
 		add_player(session_id, players[session_id]['username'])
-	
+
 	if match_id:
 		match_id_container.visible = true
 		match_id_label.text = match_id
 	else:
 		match_id_container.visible = false
-	
+
 	ready_button.grab_focus()
 
 func clear_players() -> void:
@@ -87,7 +87,7 @@ func _on_ReadyButton_pressed() -> void:
 	emit_signal("ready_pressed")
 
 func _on_MatchCopyButton_pressed() -> void:
-	OS.clipboard = match_id_label.text
+	DisplayServer.clipboard_set(match_id_label.text)
 
 #####
 # OnlineMatch callbacks:

@@ -1,43 +1,52 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=6 format=3 uid="uid://dtbn4yfol2lho"]
 
-[ext_resource path="res://assets/theme.tres" type="Theme" id=1]
-[ext_resource path="res://assets/fonts/monogram.ttf" type="FontFile" id=2]
-[ext_resource path="res://assets/fonts/monogram.tres" type="FontFile" id=3]
-[ext_resource path="res://main/screens/ConnectionScreen.gd" type="Script" id=4]
+[ext_resource type="Theme" uid="uid://bcdknopwa1n4y" path="res://assets/theme.tres" id="1"]
+[ext_resource type="FontFile" uid="uid://dwljivvvhmowk" path="res://assets/fonts/monogram.ttf" id="2"]
+[ext_resource type="FontFile" path="res://assets/fonts/monogram.tres" id="3"]
+[ext_resource type="Script" path="res://main/screens/ConnectionScreen.gd" id="4"]
 
-[sub_resource type="FontFile" id=1]
-size = 36
-font_data = ExtResource( 2 )
+[sub_resource type="FontFile" id="1"]
+fallbacks = Array[Font]([ExtResource("2")])
+face_index = null
+embolden = null
+transform = null
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/32/0 = Vector2(0, 0)
+cache/0/32/0/ascent = 0.0
+cache/0/32/0/descent = 0.0
+cache/0/32/0/underline_position = 0.0
+cache/0/32/0/underline_thickness = 0.0
+cache/0/32/0/scale = 1.0
+cache/0/32/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/32/0/kerning_overrides/32/0 = Vector2(0, 0)
 
 [node name="ConnectionScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = ExtResource( 1 )
-script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+theme = ExtResource("1")
+script = ExtResource("4")
 
 [node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 50.0
 offset_top = 50.0
 offset_right = -50.0
 offset_bottom = -50.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Login" type="Control" parent="TabContainer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 42.0
-offset_right = -4.0
-offset_bottom = -4.0
+layout_mode = 2
 
 [node name="GridContainer" type="GridContainer" parent="TabContainer/Login"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -47,60 +56,40 @@ offset_top = -75.0
 offset_right = 266.0
 offset_bottom = 9.0
 columns = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="EmailLabel" type="Label" parent="TabContainer/Login/GridContainer"]
-offset_top = 5.0
-offset_right = 99.0
-offset_bottom = 29.0
-theme_override_fonts/font = ExtResource( 3 )
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3")
 text = "E-mail:"
 
 [node name="Email" type="LineEdit" parent="TabContainer/Login/GridContainer"]
-offset_left = 103.0
-offset_right = 532.0
-offset_bottom = 34.0
+layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource( 3 )
+theme_override_fonts/font = ExtResource("3")
 caret_blink = true
 
 [node name="PasswordLabel" type="Label" parent="TabContainer/Login/GridContainer"]
-offset_top = 43.0
-offset_right = 99.0
-offset_bottom = 67.0
-theme_override_fonts/font = ExtResource( 3 )
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3")
 text = "Password:"
 
 [node name="Password" type="LineEdit" parent="TabContainer/Login/GridContainer"]
-offset_left = 103.0
-offset_top = 38.0
-offset_right = 532.0
-offset_bottom = 72.0
+layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource( 3 )
+theme_override_fonts/font = ExtResource("3")
 secret = true
 caret_blink = true
 
 [node name="Empty" type="Control" parent="TabContainer/Login/GridContainer"]
-offset_top = 76.0
-offset_right = 99.0
-offset_bottom = 113.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+layout_mode = 2
 
 [node name="SaveCheckBox" type="CheckBox" parent="TabContainer/Login/GridContainer"]
-offset_left = 103.0
-offset_top = 76.0
-offset_right = 532.0
-offset_bottom = 113.0
-theme_override_fonts/font = SubResource( 1 )
-pressed = true
+layout_mode = 2
+theme_override_fonts/font = SubResource("1")
 text = "Save email and password"
 
 [node name="LoginButton" type="Button" parent="TabContainer/Login"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -109,93 +98,61 @@ offset_left = -33.5
 offset_top = -50.0
 offset_right = 33.5
 text = "Login"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Create Account" type="Control" parent="TabContainer"]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 42.0
-offset_right = -4.0
-offset_bottom = -4.0
+layout_mode = 2
 
 [node name="GridContainer" type="GridContainer" parent="TabContainer/Create Account"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 columns = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="UsernameLabel" type="Label" parent="TabContainer/Create Account/GridContainer"]
-offset_top = 5.0
-offset_right = 99.0
-offset_bottom = 29.0
-theme_override_fonts/font = ExtResource( 3 )
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3")
 text = "Username:"
 
 [node name="Username" type="LineEdit" parent="TabContainer/Create Account/GridContainer"]
-offset_left = 103.0
-offset_right = 532.0
-offset_bottom = 34.0
+layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource( 3 )
+theme_override_fonts/font = ExtResource("3")
 caret_blink = true
 
 [node name="EmailLabel" type="Label" parent="TabContainer/Create Account/GridContainer"]
-offset_top = 43.0
-offset_right = 99.0
-offset_bottom = 67.0
-theme_override_fonts/font = ExtResource( 3 )
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3")
 text = "E-mail:"
 
 [node name="Email" type="LineEdit" parent="TabContainer/Create Account/GridContainer"]
-offset_left = 103.0
-offset_top = 38.0
-offset_right = 532.0
-offset_bottom = 72.0
+layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource( 3 )
+theme_override_fonts/font = ExtResource("3")
 caret_blink = true
 
 [node name="PasswordLabel" type="Label" parent="TabContainer/Create Account/GridContainer"]
-offset_top = 81.0
-offset_right = 99.0
-offset_bottom = 105.0
-theme_override_fonts/font = ExtResource( 3 )
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3")
 text = "Password:"
 
 [node name="Password" type="LineEdit" parent="TabContainer/Create Account/GridContainer"]
-offset_left = 103.0
-offset_top = 76.0
-offset_right = 532.0
-offset_bottom = 110.0
+layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource( 3 )
+theme_override_fonts/font = ExtResource("3")
 secret = true
 caret_blink = true
 
 [node name="Empty" type="Control" parent="TabContainer/Create Account/GridContainer"]
-offset_top = 114.0
-offset_right = 99.0
-offset_bottom = 151.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+layout_mode = 2
 
 [node name="SaveCheckBox" type="CheckBox" parent="TabContainer/Create Account/GridContainer"]
-offset_left = 103.0
-offset_top = 114.0
-offset_right = 532.0
-offset_bottom = 151.0
-theme_override_fonts/font = SubResource( 1 )
-pressed = true
+layout_mode = 2
+theme_override_fonts/font = SubResource("1")
 text = "Save email and password"
 
 [node name="CreateAccountButton" type="Button" parent="TabContainer/Create Account"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -204,5 +161,6 @@ offset_left = -83.0
 offset_top = -54.0
 offset_right = 83.0
 text = "Create Account"
+
 [connection signal="pressed" from="TabContainer/Login/LoginButton" to="." method="_on_LoginButton_pressed"]
 [connection signal="pressed" from="TabContainer/Create Account/CreateAccountButton" to="." method="_on_CreateAccountButton_pressed"]

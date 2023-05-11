@@ -7,7 +7,7 @@ func _ready() -> void:
 	$PanelContainer/VBoxContainer/MatchPanel/MatchButton.connect("pressed", Callable(self, "_on_match_button_pressed").bind(OnlineMatch.MatchMode.MATCHMAKER))
 	$PanelContainer/VBoxContainer/CreatePanel/CreateButton.connect("pressed", Callable(self, "_on_match_button_pressed").bind(OnlineMatch.MatchMode.CREATE))
 	$PanelContainer/VBoxContainer/JoinPanel/JoinButton.connect("pressed", Callable(self, "_on_match_button_pressed").bind(OnlineMatch.MatchMode.JOIN))
-	
+
 	OnlineMatch.connect("matchmaker_matched", Callable(self, "_on_OnlineMatch_matchmaker_matched"))
 	OnlineMatch.connect("match_created", Callable(self, "_on_OnlineMatch_created"))
 	OnlineMatch.connect("match_joined", Callable(self, "_on_OnlineMatch_joined"))
@@ -20,19 +20,19 @@ func _on_match_button_pressed(mode) -> void:
 	# If our session has expired, show the ConnectionScreen again.
 	if Online.nakama_session == null or Online.nakama_session.is_expired():
 		ui_layer.show_screen("ConnectionScreen", { reconnect = true, next_screen = null })
-		
+
 		# Wait to see if we get a new valid session.
 		await Online.session_changed
 		if Online.nakama_session == null:
 			return
-	
+
 	# Connect socket to realtime Nakama API if not connected.
 	if not Online.is_nakama_socket_connected():
 		Online.connect_nakama_socket()
 		await Online.socket_connected
-	
+
 	ui_layer.hide_message()
-	
+
 	# Call internal method to do actual work.
 	match mode:
 		OnlineMatch.MatchMode.MATCHMAKER:
@@ -44,10 +44,10 @@ func _on_match_button_pressed(mode) -> void:
 
 func _start_matchmaking() -> void:
 	var min_players = matchmaker_player_count_control.value
-	
+
 	ui_layer.hide_screen()
 	ui_layer.show_message("Looking for match...")
-	
+
 	var data = {
 		min_count = min_players,
 		string_properties = {
@@ -56,7 +56,7 @@ func _start_matchmaking() -> void:
 		},
 		query = "+properties.game:fish_game +properties.engine:godot",
 	}
-	
+
 	OnlineMatch.start_matchmaking(Online.nakama_socket, data)
 
 func _on_OnlineMatch_matchmaker_matched(_players: Dictionary):
@@ -76,14 +76,14 @@ func _join_match() -> void:
 		return
 	if not match_id.ends_with('.'):
 		match_id += '.'
-	
+
 	OnlineMatch.join_match(Online.nakama_socket, match_id)
 
 func _on_OnlineMatch_joined(match_id: String):
 	ui_layer.show_screen("ReadyScreen", { match_id = match_id, clear = true })
 
 func _on_PasteButton_pressed() -> void:
-	join_match_id_control.text = OS.clipboard
+	join_match_id_control.text = DisplayServer.clipboard_get()
 
 func _on_LeaderboardButton_pressed() -> void:
 	ui_layer.show_screen("LeaderboardScreen")

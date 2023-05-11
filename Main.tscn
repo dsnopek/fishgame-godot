@@ -1,77 +1,90 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=19 format=3 uid="uid://dldeajjaadgvk"]
 
-[ext_resource path="res://Main.gd" type="Script" id=1]
-[ext_resource path="res://main/screens/ConnectionScreen.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Game.tscn" type="PackedScene" id=3]
-[ext_resource path="res://main/screens/MatchScreen.tscn" type="PackedScene" id=4]
-[ext_resource path="res://main/UILayer.gd" type="Script" id=5]
-[ext_resource path="res://main/screens/ReadyScreen.tscn" type="PackedScene" id=6]
-[ext_resource path="res://main/screens/TitleScreen.tscn" type="PackedScene" id=7]
-[ext_resource path="res://assets/fonts/monogram.tres" type="FontFile" id=8]
-[ext_resource path="res://main/Music.gd" type="Script" id=9]
-[ext_resource path="res://assets/music/BUILD UP.ogg" type="AudioStream" id=10]
-[ext_resource path="res://assets/music/THEME #1.ogg" type="AudioStream" id=11]
-[ext_resource path="res://assets/music/DOMEFIGHTERS.ogg" type="AudioStream" id=12]
-[ext_resource path="res://assets/music/FISHSTICKS.ogg" type="AudioStream" id=13]
-[ext_resource path="res://main/screens/LeaderboardScreen.tscn" type="PackedScene" id=14]
-[ext_resource path="res://main/screens/CreditsScreen.tscn" type="PackedScene" id=15]
-[ext_resource path="res://main/screens/TransparentButton.gd" type="Script" id=17]
-[ext_resource path="res://assets/ui/mute.png" type="Texture2D" id=18]
-[ext_resource path="res://assets/ui/close.png" type="Texture2D" id=19]
+[ext_resource type="Script" path="res://Main.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://dtbn4yfol2lho" path="res://main/screens/ConnectionScreen.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://Game.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://main/screens/MatchScreen.tscn" id="4"]
+[ext_resource type="Script" path="res://main/UILayer.gd" id="5"]
+[ext_resource type="PackedScene" path="res://main/screens/ReadyScreen.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://dl73ar5jdb751" path="res://main/screens/TitleScreen.tscn" id="7"]
+[ext_resource type="FontFile" path="res://assets/fonts/monogram.tres" id="8"]
+[ext_resource type="Script" path="res://main/Music.gd" id="9"]
+[ext_resource type="AudioStream" uid="uid://cg2xw1iugoqu3" path="res://assets/music/BUILD UP.ogg" id="10"]
+[ext_resource type="AudioStream" uid="uid://cv7vi6w1ql5o5" path="res://assets/music/THEME #1.ogg" id="11"]
+[ext_resource type="AudioStream" uid="uid://poaf66l6cbaw" path="res://assets/music/DOMEFIGHTERS.ogg" id="12"]
+[ext_resource type="AudioStream" uid="uid://dq08cggjk6udo" path="res://assets/music/FISHSTICKS.ogg" id="13"]
+[ext_resource type="PackedScene" path="res://main/screens/LeaderboardScreen.tscn" id="14"]
+[ext_resource type="PackedScene" path="res://main/screens/CreditsScreen.tscn" id="15"]
+[ext_resource type="Script" path="res://main/screens/TransparentButton.gd" id="17"]
+[ext_resource type="Texture2D" uid="uid://c0x1c5qn18m2f" path="res://assets/ui/mute.png" id="18"]
+[ext_resource type="Texture2D" uid="uid://2b457cprq486" path="res://assets/ui/close.png" id="19"]
 
 [node name="Main" type="Node2D"]
-script = ExtResource( 1 )
+script = ExtResource("1")
 
-[node name="Game" parent="." instance=ExtResource( 3 )]
+[node name="Game" parent="." instance=ExtResource("3")]
 
 [node name="UILayer" type="CanvasLayer" parent="."]
-process_mode = 2
-script = ExtResource( 5 )
+process_mode = 3
+script = ExtResource("5")
 
 [node name="Screens" type="Control" parent="UILayer"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="TitleScreen" parent="UILayer/Screens" instance=ExtResource( 7 )]
+[node name="TitleScreen" parent="UILayer/Screens" instance=ExtResource("7")]
 visible = false
+layout_mode = 1
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="ConnectionScreen" parent="UILayer/Screens" instance=ExtResource( 2 )]
+[node name="ConnectionScreen" parent="UILayer/Screens" instance=ExtResource("2")]
 visible = false
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
 
-[node name="MatchScreen" parent="UILayer/Screens" instance=ExtResource( 4 )]
+[node name="MatchScreen" parent="UILayer/Screens" instance=ExtResource("4")]
 visible = false
+anchors_preset = 0
 
-[node name="ReadyScreen" parent="UILayer/Screens" instance=ExtResource( 6 )]
+[node name="ReadyScreen" parent="UILayer/Screens" instance=ExtResource("6")]
 visible = false
+anchors_preset = 0
 
-[node name="LeaderboardScreen" parent="UILayer/Screens" instance=ExtResource( 14 )]
+[node name="LeaderboardScreen" parent="UILayer/Screens" instance=ExtResource("14")]
 visible = false
+anchors_preset = 0
 
-[node name="CreditsScreen" parent="UILayer/Screens" instance=ExtResource( 15 )]
+[node name="CreditsScreen" parent="UILayer/Screens" instance=ExtResource("15")]
 visible = false
+anchors_preset = 0
 
 [node name="Overlay" type="Control" parent="UILayer"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Message" type="Label" parent="UILayer/Overlay"]
 visible = false
+layout_mode = 0
 anchor_right = 1.0
 offset_top = 20.0
 offset_bottom = 45.0
-theme_override_fonts/font = ExtResource( 8 )
+theme_override_fonts/font = ExtResource("8")
 text = "Waiting for players..."
-align = 1
 
 [node name="BackButton" type="Button" parent="UILayer/Overlay"]
 visible = false
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -30.0
@@ -79,58 +92,47 @@ offset_top = 2.0
 offset_right = -2.0
 offset_bottom = 30.0
 focus_mode = 0
-focus_mode = 0
-icon = ExtResource( 19 )
+icon = ExtResource("19")
 clip_text = true
-script = ExtResource( 17 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource("17")
 
 [node name="MuteButton" type="Button" parent="UILayer/Overlay"]
+layout_mode = 0
 offset_left = 2.0
 offset_top = 2.0
 offset_right = 30.0
 offset_bottom = 30.0
 focus_mode = 0
 toggle_mode = true
-focus_mode = 0
-icon = ExtResource( 18 )
+icon = ExtResource("18")
 clip_text = true
-script = ExtResource( 17 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource("17")
 
 [node name="Music" type="Node" parent="."]
-script = ExtResource( 9 )
+script = ExtResource("9")
 
 [node name="BuildUp" type="AudioStreamPlayer" parent="Music"]
-stream = ExtResource( 10 )
-bus = "Music"
+stream = ExtResource("10")
+bus = &"Music"
 
 [node name="DomeFighters" type="AudioStreamPlayer" parent="Music"]
-stream = ExtResource( 12 )
-bus = "Music"
+stream = ExtResource("12")
+bus = &"Music"
 
 [node name="Fishsticks" type="AudioStreamPlayer" parent="Music"]
-stream = ExtResource( 13 )
-bus = "Music"
+stream = ExtResource("13")
+bus = &"Music"
 
 [node name="Theme1" type="AudioStreamPlayer" parent="Music"]
-stream = ExtResource( 11 )
-bus = "Music"
+stream = ExtResource("11")
+bus = &"Music"
 
-[node name="Tween" type="Tween" parent="Music"]
-[connection signal="game_over" from="Game" to="." method="_on_Game_game_over"]
 [connection signal="game_started" from="Game" to="." method="_on_Game_game_started"]
+[connection signal="game_stopped" from="Game" to="." method="_on_Game_game_stopped"]
 [connection signal="player_dead" from="Game" to="." method="_on_Game_player_dead"]
 [connection signal="back_button" from="UILayer" to="." method="_on_UILayer_back_button"]
 [connection signal="change_screen" from="UILayer" to="." method="_on_UILayer_change_screen"]
 [connection signal="play_local" from="UILayer/Screens/TitleScreen" to="." method="_on_TitleScreen_play_local"]
 [connection signal="play_online" from="UILayer/Screens/TitleScreen" to="." method="_on_TitleScreen_play_online"]
 [connection signal="ready_pressed" from="UILayer/Screens/ReadyScreen" to="." method="_on_ReadyScreen_ready_pressed"]
-[connection signal="pressed" from="UILayer/Overlay/BackButton" to="UILayer" method="_on_BackButton_pressed"]
-[connection signal="toggled" from="UILayer/Overlay/MuteButton" to="UILayer" method="_on_MuteButton_toggled"]
 [connection signal="song_finished" from="Music" to="." method="_on_Music_song_finished"]
-[connection signal="tween_completed" from="Music/Tween" to="Music" method="_on_Tween_tween_completed"]

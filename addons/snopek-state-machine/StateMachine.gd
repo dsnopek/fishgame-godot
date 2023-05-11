@@ -11,7 +11,7 @@ var _allowed_transitions := ""
 var current_state
 var allowed_transitions_parsed := {}
 
-signal state_changed (state)
+signal state_changed (state, info)
 
 # @todo Causes some error in game!
 #func _get_configuration_warning() -> String:
@@ -83,7 +83,7 @@ func change_state(name : String, info : Dictionary = {}):
 		if current_state.has_method('_state_enter'):
 			current_state._state_enter(info)
 
-	emit_signal("state_changed", current_state)
+	emit_signal("state_changed", current_state, info)
 
 func _input(event: InputEvent) -> void:
 	if current_state and current_state.has_method('_state_input'):

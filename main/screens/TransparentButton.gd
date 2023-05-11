@@ -2,7 +2,7 @@ extends Button
 
 @onready var original_modulate = modulate
 
-@export (float) var transparency := 0.75
+@export var transparency := 0.75
 
 func _ready() -> void:
 	self.connect("mouse_entered", Callable(self, "_on_mouse_entered"))

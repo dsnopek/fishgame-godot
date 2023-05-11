@@ -13,22 +13,20 @@ var _reconnect: bool = false
 var _next_screen
 
 func _ready() -> void:
-	var file = File.new()
-	if file.file_exists(CREDENTIALS_FILENAME):
-		file.open(CREDENTIALS_FILENAME, File.READ)
+	if FileAccess.file_exists(CREDENTIALS_FILENAME):
+		var file = FileAccess.open(CREDENTIALS_FILENAME, FileAccess.READ)
 		var test_json_conv = JSON.new()
 		test_json_conv.parse(file.get_as_text())
-		var result := test_json_conv.get_data()
-		if result.result is Dictionary:
-			email = result.result['email']
-			password = result.result['password']
+		var result = test_json_conv.get_data()
+		if result is Dictionary:
+			email = result['email']
+			password = result['password']
 			login_email_field.text = email
 			login_password_field.text = password
 		file.close()
 
 func _save_credentials() -> void:
-	var file = File.new()
-	file.open(CREDENTIALS_FILENAME, File.WRITE)
+	var file = FileAccess.open(CREDENTIALS_FILENAME, FileAccess.WRITE)
 	var credentials = {
 		email = email,
 		password = password,
@@ -39,32 +37,32 @@ func _save_credentials() -> void:
 func _show_screen(info: Dictionary = {}) -> void:
 	_reconnect = info.get('reconnect', false)
 	_next_screen = info.get('next_screen', 'MatchScreen')
-	
+
 	tab_container.current_tab = 0
-	
+
 	# If we have a stored email and password, attempt to login straight away.
 	if email != '' and password != '':
 		do_login()
 
 func do_login(save_credentials: bool = false) -> void:
 	visible = false
-	
+
 	if _reconnect:
 		ui_layer.show_message("Session expired! Reconnecting...")
 	else:
 		ui_layer.show_message("Logging in...")
-	
-	var nakama_session = await Online.nakama_client.authenticate_email_async(email, password, null, false).completed
-	
+
+	var nakama_session = await Online.nakama_client.authenticate_email_async(email, password, null, false)
+
 	if nakama_session.is_exception():
 		visible = true
 		ui_layer.show_message("Login failed!")
-		
+
 		# Clear stored email and password, but leave the fields alone so the
 		# user can attempt to correct them.
 		email = ''
 		password = ''
-		
+
 		# We always set Online.nakama_session in case something is yielding
 		# on the "session_changed" signal.
 		Online.nakama_session = null
@@ -73,7 +71,7 @@ func do_login(save_credentials: bool = false) -> void:
 			_save_credentials()
 		Online.nakama_session = nakama_session
 		ui_layer.hide_message()
-		
+
 		if _next_screen:
 			ui_layer.show_screen(_next_screen)
 
@@ -85,10 +83,10 @@ func _on_LoginButton_pressed() -> void:
 func _on_CreateAccountButton_pressed() -> void:
 	email = $"TabContainer/Create Account/GridContainer/Email".text.strip_edges()
 	password = $"TabContainer/Create Account/GridContainer/Password".text.strip_edges()
-	
+
 	var username = $"TabContainer/Create Account/GridContainer/Username".text.strip_edges()
 	var save_credentials = $"TabContainer/Create Account/GridContainer/SaveCheckBox".pressed
-	
+
 	if email == '':
 		ui_layer.show_message("Must provide email")
 		return
@@ -98,15 +96,15 @@ func _on_CreateAccountButton_pressed() -> void:
 	if username == '':
 		ui_layer.show_message("Must provide username")
 		return
-	
+
 	visible = false
 	ui_layer.show_message("Creating account...")
 
-	var nakama_session = await Online.nakama_client.authenticate_email_async(email, password, username, true).completed
-	
+	var nakama_session = await Online.nakama_client.authenticate_email_async(email, password, username, true)
+
 	if nakama_session.is_exception():
 		visible = true
-		
+
 		var msg = nakama_session.get_exception().message
 		# Nakama treats registration as logging in, so this is what we get if the
 		# the email is already is use but the password is wrong.
@@ -115,7 +113,7 @@ func _on_CreateAccountButton_pressed() -> void:
 		elif msg == '':
 			msg = "Unable to create account"
 		ui_layer.show_message(msg)
-		
+
 		# We always set Online.nakama_session in case something is yielding
 		# on the "session_changed" signal.
 		Online.nakama_session = null
