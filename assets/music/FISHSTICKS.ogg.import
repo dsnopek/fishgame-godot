@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/FISHSTICKS.ogg-c2e1fad11bc2d9fd8d7454aee15cd469.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dq08cggjk6udo"
+path="res://.godot/imported/FISHSTICKS.ogg-c2e1fad11bc2d9fd8d7454aee15cd469.oggvorbisstr"
 
 [deps]
 
 source_file="res://assets/music/FISHSTICKS.ogg"
-dest_files=[ "res://.import/FISHSTICKS.ogg-c2e1fad11bc2d9fd8d7454aee15cd469.oggstr" ]
+dest_files=["res://.godot/imported/FISHSTICKS.ogg-c2e1fad11bc2d9fd8d7454aee15cd469.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

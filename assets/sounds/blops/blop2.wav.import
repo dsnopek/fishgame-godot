@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/blop2.wav-d1941dfaaadfb48066e0c478f897c0c6.sample"
+type="AudioStreamWAV"
+uid="uid://b4i6a0piemiyc"
+path="res://.godot/imported/blop2.wav-d1941dfaaadfb48066e0c478f897c0c6.sample"
 
 [deps]
 
 source_file="res://assets/sounds/blops/blop2.wav"
-dest_files=[ "res://.import/blop2.wav-d1941dfaaadfb48066e0c478f897c0c6.sample" ]
+dest_files=["res://.godot/imported/blop2.wav-d1941dfaaadfb48066e0c478f897c0c6.sample"]
 
 [params]
 
@@ -17,5 +18,7 @@ force/max_rate=false
 force/max_rate_hz=44100
 edit/trim=false
 edit/normalize=false
-edit/loop=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
 compress/mode=0
