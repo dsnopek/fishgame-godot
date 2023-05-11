@@ -1,7 +1,7 @@
 extends StaticBody2D
 
 @export var pickup_scene: PackedScene
-@export_node_path("Node2D") var pickup_parent_path: NodePath = @"../"
+@export_node_path("Node2D") var pickup_parent_path: NodePath = "../"
 @export var regenerate_delay := 10.0
 
 @onready var timer = $Timer

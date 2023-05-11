@@ -111,8 +111,8 @@ func _physics_process(delta: float) -> void:
 	# Bounce the object if it collides.
 	if collision:
 		#linear_velocity = collision.normal * collision.remainder.length()
-		linear_velocity = collision.normal * (linear_velocity.length() * bounce)
-		move_and_collide(collision.normal * collision.remainder.length())
+		linear_velocity = collision.get_normal() * (linear_velocity.length() * bounce)
+		move_and_collide(collision.get_normal() * collision.get_remainder().length())
 
 	# Sleep the object if it gets below certain linear/angular velocity thresholds.
 	if not GameState.online_play or OnlineMatch.is_network_master_for_node(self):
