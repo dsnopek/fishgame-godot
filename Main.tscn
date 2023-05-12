@@ -13,8 +13,8 @@
 [ext_resource type="AudioStream" uid="uid://cv7vi6w1ql5o5" path="res://assets/music/THEME #1.ogg" id="11"]
 [ext_resource type="AudioStream" uid="uid://poaf66l6cbaw" path="res://assets/music/DOMEFIGHTERS.ogg" id="12"]
 [ext_resource type="AudioStream" uid="uid://dq08cggjk6udo" path="res://assets/music/FISHSTICKS.ogg" id="13"]
-[ext_resource type="PackedScene" path="res://main/screens/LeaderboardScreen.tscn" id="14"]
-[ext_resource type="PackedScene" path="res://main/screens/CreditsScreen.tscn" id="15"]
+[ext_resource type="PackedScene" uid="uid://dkl4navjpn6lb" path="res://main/screens/LeaderboardScreen.tscn" id="14"]
+[ext_resource type="PackedScene" uid="uid://b048luc3fmq10" path="res://main/screens/CreditsScreen.tscn" id="15"]
 [ext_resource type="Script" path="res://main/screens/TransparentButton.gd" id="17"]
 [ext_resource type="Texture2D" uid="uid://c0x1c5qn18m2f" path="res://assets/ui/mute.png" id="18"]
 [ext_resource type="Texture2D" uid="uid://2b457cprq486" path="res://assets/ui/close.png" id="19"]
@@ -42,11 +42,7 @@ layout_mode = 1
 
 [node name="ConnectionScreen" parent="UILayer/Screens" instance=ExtResource("2")]
 visible = false
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
+layout_mode = 1
 
 [node name="MatchScreen" parent="UILayer/Screens" instance=ExtResource("4")]
 visible = false
@@ -59,10 +55,18 @@ anchors_preset = 0
 [node name="LeaderboardScreen" parent="UILayer/Screens" instance=ExtResource("14")]
 visible = false
 anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
 
 [node name="CreditsScreen" parent="UILayer/Screens" instance=ExtResource("15")]
 visible = false
-anchors_preset = 0
+layout_mode = 1
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Overlay" type="Control" parent="UILayer"]
 layout_mode = 3
@@ -80,7 +84,9 @@ anchor_right = 1.0
 offset_top = 20.0
 offset_bottom = 45.0
 theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 30
 text = "Waiting for players..."
+horizontal_alignment = 1
 
 [node name="BackButton" type="Button" parent="UILayer/Overlay"]
 visible = false
