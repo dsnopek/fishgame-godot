@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Main.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://dtbn4yfol2lho" path="res://main/screens/ConnectionScreen.tscn" id="2"]
-[ext_resource type="PackedScene" path="res://Game.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://ca6oqqdx0x6j7" path="res://Game.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://main/screens/MatchScreen.tscn" id="4"]
 [ext_resource type="Script" path="res://main/UILayer.gd" id="5"]
 [ext_resource type="PackedScene" path="res://main/screens/ReadyScreen.tscn" id="6"]

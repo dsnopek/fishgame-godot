@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://d0y3mbk78o4s8"]
+[gd_scene load_steps=13 format=3 uid="uid://d0y3mbk78o4s8"]
 
 [ext_resource type="Texture2D" uid="uid://btrrj3ou03vi1" path="res://assets/sprites/gun.png" id="1"]
 [ext_resource type="PackedScene" path="res://pickups/Pickup.tscn" id="2"]
 [ext_resource type="Script" path="res://pickups/Gun.gd" id="3"]
+[ext_resource type="PackedScene" path="res://pickups/Projectile.tscn" id="3_q8g43"]
 [ext_resource type="AudioStream" uid="uid://gdu4rgvlqmh6" path="res://assets/sounds/shoot.ogg" id="4"]
 [ext_resource type="Script" path="res://components/Sounds.gd" id="5"]
 [ext_resource type="AudioStream" uid="uid://d3hgd7crqibrc" path="res://assets/sounds/empty.wav" id="6"]
@@ -91,6 +92,11 @@ _data = {
 
 [node name="Gun" instance=ExtResource("2")]
 script = ExtResource("3")
+projectile_scene = ExtResource("3_q8g43")
+projectile_velocity = 1200.0
+projectile_range = 400.0
+cooldown_time = 0.3
+max_ammo = 3
 
 [node name="GunSprite" type="Sprite2D" parent="." index="0"]
 position = Vector2(14, -4)

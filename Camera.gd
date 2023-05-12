@@ -59,7 +59,7 @@ func calculate_center(camera_rect: Rect2) -> Vector2:
 		camera_rect.position.y + (camera_rect.size.y / 2))
 
 func calculate_zoom(camera_rect: Rect2, viewport_size: Vector2) -> Vector2:
-	var zoom = max(
+	var zoom = 1.0 / max(
 		max(1.0, (camera_rect.size.x / viewport_size.x) + zoom_offset),
 		max(1.0, (camera_rect.size.y / viewport_size.y) + zoom_offset))
 	return Vector2(zoom, zoom)

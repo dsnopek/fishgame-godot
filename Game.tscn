@@ -1,19 +1,18 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://ca6oqqdx0x6j7"]
 
-[ext_resource path="res://Camera.gd" type="Script" id=1]
-[ext_resource path="res://Game.gd" type="Script" id=2]
+[ext_resource type="Script" path="res://Camera.gd" id="1"]
+[ext_resource type="Script" path="res://Game.gd" id="2"]
 
 [node name="Game" type="Node2D"]
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="Map" type="Node2D" parent="."]
 
 [node name="Players" type="Node2D" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 420, -350 )
-current = true
+position = Vector2(420, -350)
 limit_bottom = 0
-script = ExtResource( 1 )
+script = ExtResource("1")
 player_container_path = NodePath("../Players")
 zoom_offset = 0.5
