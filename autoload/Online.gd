@@ -8,6 +8,8 @@ var nakama_host: String = 'localhost'
 var nakama_port: int = 7350
 var nakama_scheme: String = 'http'
 
+var _nakama_client: NakamaClient
+
 # For other scripts to access:
 var nakama_client: NakamaClient: get = get_nakama_client, set = _set_readonly_variable
 var nakama_session: NakamaSession: set = set_nakama_session
@@ -28,8 +30,8 @@ func _ready() -> void:
 	Nakama.process_mode = Node.PROCESS_MODE_ALWAYS
 
 func get_nakama_client() -> NakamaClient:
-	if nakama_client == null:
-		nakama_client = Nakama.create_client(
+	if _nakama_client == null:
+		_nakama_client = Nakama.create_client(
 			nakama_server_key,
 			nakama_host,
 			nakama_port,
@@ -37,7 +39,7 @@ func get_nakama_client() -> NakamaClient:
 			Nakama.DEFAULT_TIMEOUT,
 			NakamaLogger.LOG_LEVEL.ERROR)
 
-	return nakama_client
+	return _nakama_client
 
 func set_nakama_session(_nakama_session: NakamaSession) -> void:
 	# Close out the old socket.
@@ -59,7 +61,7 @@ func connect_nakama_socket() -> void:
 		return
 	_nakama_socket_connecting = true
 
-	var new_socket = Nakama.create_socket_from(nakama_client)
+	var new_socket = Nakama.create_socket_from(_nakama_client)
 	await new_socket.connect_async(nakama_session)
 	nakama_socket = new_socket
 	_nakama_socket_connecting = false
