@@ -1,15 +1,15 @@
 [gd_scene load_steps=12 format=3 uid="uid://d0y3mbk78o4s8"]
 
 [ext_resource type="Texture2D" uid="uid://btrrj3ou03vi1" path="res://assets/sprites/gun.png" id="1"]
-[ext_resource type="PackedScene" path="res://pickups/Pickup.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://bmnok1dwyv3cl" path="res://pickups/Pickup.tscn" id="2"]
 [ext_resource type="Script" path="res://pickups/Gun.gd" id="3"]
 [ext_resource type="AudioStream" uid="uid://gdu4rgvlqmh6" path="res://assets/sounds/shoot.ogg" id="4"]
 [ext_resource type="Script" path="res://components/Sounds.gd" id="5"]
 [ext_resource type="AudioStream" uid="uid://d3hgd7crqibrc" path="res://assets/sounds/empty.wav" id="6"]
 
 [sub_resource type="CapsuleShape2D" id="1"]
-radius = 11.9999
-height = 38.0001
+radius = 12.0
+height = 64.0
 
 [sub_resource type="RectangleShape2D" id="2"]
 

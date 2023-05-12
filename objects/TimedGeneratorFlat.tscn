@@ -15,7 +15,7 @@ offsets = PackedFloat32Array(0, 0.851759, 1)
 colors = PackedColorArray(0.898039, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(15, 1)
+size = Vector2(30, 2)
 
 [sub_resource type="Animation" id="2"]
 resource_name = "Glow"
@@ -48,8 +48,8 @@ amount = 24
 lifetime = 1.1
 lifetime_randomness = 0.2
 texture = ExtResource("3")
-emission_shape = 2
-emission_sphere_radius = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(11, 1)
 gravity = Vector2(0, -98)
 scale_amount_curve = SubResource("3")
 color_ramp = SubResource("4")

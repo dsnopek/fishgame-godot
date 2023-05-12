@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://Game.gd" id="2"]
 
 [node name="Game" type="Node2D"]
+texture_filter = 1
 script = ExtResource("2")
 
 [node name="Map" type="Node2D" parent="."]

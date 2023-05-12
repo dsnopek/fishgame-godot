@@ -4,9 +4,7 @@
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pld33"]
 texture = ExtResource("1")
-margins = Vector2i(2, 2)
-separation = Vector2i(2, 2)
-texture_region_size = Vector2i(30, 30)
+texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0

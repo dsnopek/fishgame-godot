@@ -24,19 +24,19 @@
 [ext_resource type="Script" path="res://actors/player-states/Fall.gd" id="22"]
 
 [sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(14.5, 28)
+size = Vector2(29, 56)
 
 [sub_resource type="RectangleShape2D" id="2"]
-size = Vector2(14.5, 19)
+size = Vector2(29, 38)
 
 [sub_resource type="RectangleShape2D" id="3"]
-size = Vector2(30, 14)
+size = Vector2(60, 28)
 
 [sub_resource type="RectangleShape2D" id="4"]
-size = Vector2(25, 41)
+size = Vector2(50, 28)
 
 [sub_resource type="RectangleShape2D" id="5"]
-size = Vector2(19, 8)
+size = Vector2(38, 16)
 
 [sub_resource type="Animation" id="6"]
 resource_name = "Blop"
@@ -439,6 +439,7 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D"]
+texture_filter = 1
 collision_layer = 2
 collision_mask = 17
 script = ExtResource("9")
@@ -452,7 +453,6 @@ texture = ExtResource("1")
 offset = Vector2(-65, 16)
 hframes = 7
 vframes = 22
-frame = 14
 
 [node name="FinSprite" type="Sprite2D" parent="."]
 position = Vector2(0, -31)
@@ -486,7 +486,7 @@ monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
 modulate = Color(0.827451, 0, 1, 1)
-position = Vector2(0, -21.5)
+position = Vector2(0, -14)
 shape = SubResource("4")
 
 [node name="PassThroughDetectorArea" type="Area2D" parent="."]

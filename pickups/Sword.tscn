@@ -1,106 +1,113 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=3 uid="uid://28kguvi6h41f"]
 
-[ext_resource path="res://pickups/Pickup.tscn" type="PackedScene" id=1]
-[ext_resource path="res://assets/sprites/sword.png" type="Texture2D" id=2]
-[ext_resource path="res://components/Hitbox.tscn" type="PackedScene" id=3]
-[ext_resource path="res://pickups/Sword.gd" type="Script" id=4]
-[ext_resource path="res://assets/sounds/sword.wav" type="AudioStream" id=5]
-[ext_resource path="res://components/Sounds.gd" type="Script" id=6]
+[ext_resource type="PackedScene" uid="uid://bmnok1dwyv3cl" path="res://pickups/Pickup.tscn" id="1"]
+[ext_resource type="Texture2D" uid="uid://crbg3ina60g5" path="res://assets/sprites/sword.png" id="2"]
+[ext_resource type="PackedScene" path="res://components/Hitbox.tscn" id="3"]
+[ext_resource type="Script" path="res://pickups/Sword.gd" id="4"]
+[ext_resource type="AudioStream" uid="uid://cvdovib4h48vb" path="res://assets/sounds/sword.wav" id="5"]
+[ext_resource type="Script" path="res://components/Sounds.gd" id="6"]
 
-[sub_resource type="RectangleShape2D" id=1]
-size = Vector2( 12.9448, 32.6482 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(25.89, 65.296)
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id="2"]
 resource_name = "Idle"
 length = 0.001
 step = 0.05
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("Hitbox:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0 ),
-"transitions": PackedFloat32Array( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ true ]
+"values": [true]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("Sprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PackedFloat32Array( 0 ),
-"transitions": PackedFloat32Array( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ 0 ]
+"values": [0]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id="3"]
 length = 0.3
 step = 0.05
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("Hitbox:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0, 0.1, 0.2 ),
-"transitions": PackedFloat32Array( 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [ true, false, true ]
+"values": [true, false, true]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("Sprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PackedFloat32Array( 0, 0.1, 0.2, 0.25 ),
-"transitions": PackedFloat32Array( 1, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [ 4, 5, 6, 7 ]
+"values": [4, 5, 6, 7]
 }
 
-[node name="Sword" instance=ExtResource( 1 )]
-script = ExtResource( 4 )
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2uljv"]
+_data = {
+"Idle": SubResource("2"),
+"Swing": SubResource("3")
+}
+
+[node name="Sword" instance=ExtResource("1")]
+script = ExtResource("4")
 pickup_position = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="0"]
-position = Vector2( 24, -39 )
-texture = ExtResource( 2 )
-vframes = 2
+position = Vector2(24, -39)
+texture = ExtResource("2")
 hframes = 4
+vframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
-position = Vector2( 14, -29.5 )
+position = Vector2(14, -29.5)
 rotation = 0.486947
-shape = SubResource( 1 )
+shape = SubResource("1")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
 autoplay = "Idle"
-anims/Idle = SubResource( 2 )
-anims/Swing = SubResource( 3 )
+libraries = {
+"": SubResource("AnimationLibrary_2uljv")
+}
 
-[node name="Hitbox" parent="." index="3" instance=ExtResource( 3 )]
-position = Vector2( 29, -23.5 )
+[node name="Hitbox" parent="." index="3" instance=ExtResource("3")]
+position = Vector2(29, -23.5)
 collision_mask = 2
 disabled = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox" index="0"]
-polygon = PackedVector2Array( -23, -5.5, -16, -18.5, -8, -48.5, 9, -34.5, 25, -4.5, 27, 16.5, 22, 25.5, 8, 30.5, -3, 30.5, -23, 20.5 )
+polygon = PackedVector2Array(-23, -5.5, -16, -18.5, -8, -48.5, 9, -34.5, 25, -4.5, 27, 16.5, 22, 25.5, 8, 30.5, -3, 30.5, -23, 20.5)
 
 [node name="Sounds" type="Node" parent="." index="4"]
-script = ExtResource( 6 )
+script = ExtResource("6")
 
 [node name="Swing" type="AudioStreamPlayer" parent="Sounds" index="0"]
-stream = ExtResource( 5 )
-bus = "Sound Effects"
+stream = ExtResource("5")
+bus = &"Sound Effects"
 
 [node name="HeldPosition" parent="." index="5"]
-position = Vector2( 0, -8.5 )
+position = Vector2(0, -8.5)

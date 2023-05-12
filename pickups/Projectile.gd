@@ -19,7 +19,6 @@ func shoot(_start_position: Vector2, _vector: Vector2, _max_distance: float, _du
 	vector = _vector
 	max_distance = _max_distance
 	dud = _dud
-	print("Dud: ", dud)
 
 	global_position = _start_position
 
@@ -54,11 +53,9 @@ func _on_Projectile_body_entered(body: Node) -> void:
 		hit()
 
 func hit() -> void:
-	print ("Hit")
 	vector = Vector2.ZERO
 	animation_player.play("Hit")
 
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 	if anim_name == 'Hit':
-		print ("freed")
 		queue_free()

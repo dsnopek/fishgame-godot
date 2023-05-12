@@ -1,10 +1,10 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://bmnok1dwyv3cl"]
 
-[ext_resource path="res://pickups/Pickup.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://pickups/Pickup.gd" id="1"]
 
 [node name="Pickup" type="CharacterBody2D"]
 collision_layer = 8
 collision_mask = 17
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="HeldPosition" type="Marker2D" parent="."]

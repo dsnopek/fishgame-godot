@@ -17,13 +17,23 @@ emitting = false
 one_shot = true
 explosiveness = 1.0
 texture = ExtResource("1")
-emission_shape = 2
-emission_sphere_radius = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(10, 1)
 direction = Vector2(0, -1)
 spread = 90.0
 gravity = Vector2(0, 1500)
+initial_velocity_min = 300.0
+initial_velocity_max = 900.0
+angular_velocity_min = 45.0
+angular_velocity_max = 135.0
+linear_accel_min = 25.0
+linear_accel_max = 75.0
+scale_amount_min = 0.38
+scale_amount_max = 1.13
 scale_amount_curve = SubResource("1")
 color_ramp = ExtResource("3")
+hue_variation_min = 0.02
+hue_variation_max = 0.08
 script = ExtResource("2")
 
 [node name="Timer" type="Timer" parent="."]
