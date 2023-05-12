@@ -59,8 +59,13 @@ var flip_h := false: set = set_flip_h
 var show_gliding := false: set = set_show_gliding
 var show_sliding := false: set = set_show_sliding
 
-const ONE_WAY_PLATFORMS_COLLISION_BIT := 4
-var pass_through_one_way_platforms := false: set = set_pass_through_one_way_platforms
+const ONE_WAY_PLATFORMS_COLLISION_BIT := 5
+var _pass_through_one_way_platforms := false
+var pass_through_one_way_platforms: bool:
+	get:
+		return _pass_through_one_way_platforms
+	set(v):
+		set_pass_through_one_way_platforms(v)
 
 var vector := Vector2.ZERO
 var current_pickup: CharacterBody2D
@@ -114,12 +119,14 @@ func set_flip_h(_flip_h: bool) -> void:
 			scale.x = initial_scale.x * sign(scale.y)
 
 func set_pass_through_one_way_platforms(_pass_through: bool) -> void:
-	if pass_through_one_way_platforms != _pass_through:
-		pass_through_one_way_platforms = _pass_through
+	if _pass_through_one_way_platforms != _pass_through:
+		_pass_through_one_way_platforms = _pass_through
 		set_collision_mask_value(ONE_WAY_PLATFORMS_COLLISION_BIT, !_pass_through)
+		print("pass through: ", _pass_through)
+		print(get_collision_mask_value(ONE_WAY_PLATFORMS_COLLISION_BIT))
 
 func _on_PassThroughDetectorArea_body_exited(body: Node) -> void:
-	self.pass_through_one_way_platforms = false
+	set_pass_through_one_way_platforms(false)
 
 func set_show_gliding(_show_gliding: bool) -> void:
 	if show_gliding != _show_gliding:
@@ -283,7 +290,7 @@ func _physics_process(delta: float) -> void:
 			if sync_forced or input_buffer_changed or sync_counter >= SYNC_DELAY:
 				sync_counter = 0
 				sync_forced = false
-				OnlineMatch.custom_rpc(self, "update_remote_player", [input_buffer.buffer, state_machine.current_state.name, sync_state_info, global_position, vector, body_sprite.frame, flip_h, show_gliding, show_sliding, pass_through_one_way_platforms])
+				OnlineMatch.custom_rpc(self, "update_remote_player", [input_buffer.buffer, state_machine.current_state.name, sync_state_info, global_position, vector, body_sprite.frame, flip_h, show_gliding, show_sliding, _pass_through_one_way_platforms])
 				if sync_state_info.size() > 0:
 					sync_state_info.clear()
 		else:
