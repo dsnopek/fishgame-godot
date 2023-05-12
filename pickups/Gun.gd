@@ -3,7 +3,7 @@ extends Pickup
 var DisintegrateEffect: PackedScene = preload("res://pickups/DisintegrateEffect.tscn")
 var SparksEffect: PackedScene = preload("res://pickups/SparksEffect.tscn")
 
-@export var projectile_scene: PackedScene = preload("res://pickups/Projectile.tscn")
+var projectile_scene: PackedScene = preload("res://pickups/Projectile.tscn")
 @export var projectile_velocity := 1200.0
 @export var projectile_range := 400.0
 @export var cooldown_time := 0.3
@@ -58,7 +58,9 @@ func _fire_projectile() -> void:
 
 	var projectile_name = Util.find_unique_name(original_parent, 'Projectile-')
 	var projectile_vector: Vector2 = (Vector2.RIGHT * projectile_velocity).rotated(global_rotation)
-	var projectile_dud: bool = dud_detector.get_overlapping_bodies().size() > 0
+	# @todo: Seems to always collide with the tilemap? Disable for now.
+	#var projectile_dud: bool = dud_detector.get_overlapping_bodies().size() > 0
+	var projectile_dud: bool = false
 
 	if not GameState.online_play:
 		_do_fire_projectile(projectile_name, projectile_position.global_position, projectile_vector, projectile_range, projectile_dud)
@@ -78,6 +80,7 @@ func _do_fire_projectile(_projectile_name: String, _projectile_position: Vector2
 		var projectile = projectile_scene.instantiate()
 		projectile.name = _projectile_name
 		projectile_parent.add_child(projectile)
+		print ("Projectile: ", projectile)
 
 		projectile.shoot(_projectile_position, _projectile_vector, _projectile_range, _projectile_dud)
 		sounds.play("Shoot")

@@ -39,14 +39,14 @@ grow_vertical = 2
 [node name="TitleScreen" parent="UILayer/Screens" instance=ExtResource("7")]
 visible = false
 layout_mode = 1
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="ConnectionScreen" parent="UILayer/Screens" instance=ExtResource("2")]
 visible = false
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="MatchScreen" parent="UILayer/Screens" instance=ExtResource("4")]
 visible = false
@@ -135,4 +135,6 @@ bus = &"Music"
 [connection signal="play_local" from="UILayer/Screens/TitleScreen" to="." method="_on_TitleScreen_play_local"]
 [connection signal="play_online" from="UILayer/Screens/TitleScreen" to="." method="_on_TitleScreen_play_online"]
 [connection signal="ready_pressed" from="UILayer/Screens/ReadyScreen" to="." method="_on_ReadyScreen_ready_pressed"]
+[connection signal="pressed" from="UILayer/Overlay/BackButton" to="UILayer" method="_on_BackButton_pressed"]
+[connection signal="toggled" from="UILayer/Overlay/MuteButton" to="UILayer" method="_on_MuteButton_toggled"]
 [connection signal="song_finished" from="Music" to="." method="_on_Music_song_finished"]

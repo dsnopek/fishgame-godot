@@ -247,6 +247,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="17"]
 length = 0.6
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -451,7 +452,7 @@ texture = ExtResource("1")
 offset = Vector2(-65, 16)
 hframes = 7
 vframes = 22
-frame = 1
+frame = 14
 
 [node name="FinSprite" type="Sprite2D" parent="."]
 position = Vector2(0, -31)
