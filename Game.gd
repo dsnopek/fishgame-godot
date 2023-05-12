@@ -2,8 +2,7 @@ extends Node2D
 
 var Player = preload("res://actors/Player.tscn")
 
-#@export var map_scene: PackedScene = preload("res://maps/Map1.tscn")
-@export var map_scene: PackedScene = preload("res://maps/TestMap.tscn")
+@export var map_scene: PackedScene = preload("res://maps/Map1.tscn")
 
 @onready var map: Node2D = $Map
 @onready var players_node := $Players

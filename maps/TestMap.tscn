@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://nwmypx6a5leg"]
 
 [ext_resource type="Script" path="res://maps/Map.gd" id="1"]
-[ext_resource type="TileSet" path="res://assets/tilesets/tileset.tres" id="2"]
+[ext_resource type="TileSet" uid="uid://eael5sneujok" path="res://assets/tilesets/tileset.tres" id="2"]
 [ext_resource type="Texture2D" uid="uid://b55a21cc5kbu0" path="res://assets/tilesets/template.png" id="2_eknnm"]
 [ext_resource type="PackedScene" uid="uid://d0y3mbk78o4s8" path="res://pickups/Gun.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://objects/Seaweed.tscn" id="4"]
